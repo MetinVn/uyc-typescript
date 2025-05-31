@@ -48,7 +48,7 @@ export const MusicCardWrapper = ({ musicList, sectionTitle, sectionLinkTitle }: 
       {musicList.length === 0 ? (
         <p className="text-gray-400">No music found.</p>
       ) : (
-        <motion.ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 bg-black/20 rounded-md overflow-y-scroll w-full max-h-[350px] p-2 sm:p-3">
+        <motion.ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 bg-black/20 rounded-md overflow-y-scroll w-full max-h-[370px] p-2 sm:p-3">
           <AnimatePresence mode="sync">
             {sliced.map((music) => (
               <MusicCard

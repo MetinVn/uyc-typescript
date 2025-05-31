@@ -39,11 +39,11 @@ export const MusicCard = ({ music, onRate, onToggleFavorite, onRemove }: IMusicC
           : "border-transparent hover:bg-black/10 hover:shadow-inner"
       } border rounded-xl p-1 sm:p-4 flex flex-col justify-between transition`}
     >
-      <div className="relative w-full h-45 rounded-lg overflow-hidden">
+      <div className="relative w-full h-45 sm:h-50 rounded-lg overflow-hidden">
         <img
           src={music.thumbnail || placeholder}
           alt={music.title}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover object-center"
           draggable={false}
         />
         <p className="absolute bottom-1 right-1 bg-black/60 text-white text-[10px] sm:text-xs px-2 py-0.5 rounded">
