@@ -7,7 +7,7 @@ export type Music = {
   title: string;
   thumbnail: string | null;
   starred: boolean;
-  rating: number | null;
+  rating: number;
   expiresAt: number;
   addedAt: number;
 };

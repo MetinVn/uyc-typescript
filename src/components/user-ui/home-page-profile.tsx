@@ -17,7 +17,6 @@ export const UserProfile = ({ user }: { user: User }) => {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const resetFormat = useMusicFormat((state) => state.resetFormat);
-  const setFormat = useMusicFormat((state) => state.setFormat);
   useHandleOutsideClicks({ isActive: expand, ref: dropdownRef, stateChanger: setExpand });
 
   const handleLogOutPopup = () => {
@@ -27,12 +26,12 @@ export const UserProfile = ({ user }: { user: User }) => {
   const handleSignOut = async () => {
     const result = await signOutCurrentUser();
     if (result) {
-      // resetFormat();
-      setFormat("mp3");
+      resetFormat();
       notify.success("Signed out succesfully", 2500);
-      return;
+      return true;
     }
     notify.error("Unexpected error happened while signing you out, please try again.", 2500);
+    return false;
   };
 
   return (

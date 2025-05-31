@@ -29,7 +29,7 @@ export default function SignInComponent() {
     }
     try {
       const user = await signInWithEmailPassword(validated.email, validated.password);
-      user.reload();
+      await user.reload();
 
       if (user && !user.emailVerified) {
         await signOutCurrentUser();
@@ -44,10 +44,10 @@ export default function SignInComponent() {
       notify.success(`Welcome ${user.displayName || "User"}`, 3500);
       success();
       before();
+      console.clear();
       setTimeout(() => {
         navigate(ROUTES.HOME);
       }, 1000);
-      console.clear();
       return true;
     } catch (error) {
       let errorMessage = "Something went wrong";

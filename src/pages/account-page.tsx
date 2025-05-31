@@ -260,7 +260,10 @@ export default function Account() {
           <FormModal
             title="Update Profile"
             onSubmit={updateProfileName}
-            onCloseModal={() => setShowEditName(false)}
+            onCloseModal={() => {
+              setShowEditName(false);
+              editProfileNameForm.resetForm();
+            }}
             buttonState={editNameButtonState}
             animButtonText="Change Name"
             animButtonId={animateEditNameID}
@@ -284,7 +287,10 @@ export default function Account() {
         {showEditPass && (
           <FormModal
             onSubmit={updateProfilePass}
-            onCloseModal={() => setShowEditPass(false)}
+            onCloseModal={() => {
+              setShowEditPass(false);
+              editProfilePassForm.resetForm();
+            }}
             title="Update Password"
             buttonState={editPassButtonState}
             animButtonText="Change Password"
@@ -311,8 +317,7 @@ export default function Account() {
             onSubmit={handleDeleteAccount}
             onCloseModal={() => {
               setShowDeleteModal(false);
-              deleteProfileForm.setFormData({ currentPassword: "" }),
-                deleteProfileForm.setErrors({ currentPassword: "" });
+              deleteProfileForm.resetForm();
             }}
             dangerTitle
             animButtonText="Confirm"

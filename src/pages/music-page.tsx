@@ -1,51 +1,23 @@
-import { useMusicList, uycmusic } from "../stores/user/music-list";
-import { notify } from "../stores/shared/notification";
-import { Music } from "../types/types-converted-music";
+import { useMusicList } from "../stores/user/music-list";
 import { useState } from "react";
 import { CustomLink } from "../components/reused-ui/reused-router-link";
 import { ROUTES } from "../routes/routes";
-import { motion, AnimatePresence } from "framer-motion";
-import { MusicCard } from "../components/reused-ui/reused-music-card";
+import { MusicWrapper } from "../components/reused-ui/reused-music-wrapper";
 
 export default function MusicPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortBy, setSortBy] = useState<"rating" | "duration" | "size" | "favorites" | "recent" | null>(null);
   const music = useMusicList((state) => state.music);
 
-  const handleRemoveSong = (song: Music) => {
-    uycmusic.remove(song.id);
-    notify.success(`${song.title} removed`, 1500);
-  };
-
-  const handleToggleFavorite = (song: Music) => {
-    const isFavorite = song.starred;
-    uycmusic.favor(song.id);
-    if (isFavorite) {
-      notify.info(`${song.title} removed from favorites`, 2500);
-    } else {
-      notify.success(`${song.title} added to favorites`, 2500);
-    }
-  };
-
-  const handleRate = (rating: number, music: Music) => {
-    const isRatededSame = music.rating === rating;
-    uycmusic.rate(rating, music.id);
-    if (isRatededSame) {
-      notify.info("Rating removed", 2500);
-      return;
-    }
-    notify.success(`Rated ${music.title} with ${rating} star${rating > 1 ? "s" : ""}`, 2500);
-  };
-
   const handleSort = (criteria: typeof sortBy) => setSortBy(criteria);
 
   let filteredMusic = music.filter((song) => song.title.toLowerCase().includes(searchTerm.toLowerCase()));
 
   if (sortBy) {
-    filteredMusic = [...filteredMusic].sort((a, b) => {
+    filteredMusic.sort((a, b) => {
       switch (sortBy) {
         case "rating":
-          return (b.rating ?? 0) - (a.rating ?? 0);
+          return b.rating - a.rating;
         case "duration":
           return b.duration - a.duration;
         case "size":
@@ -118,36 +90,7 @@ export default function MusicPage() {
           </button>
         </div>
       </div>
-
-      <div className="flex justify-between items-center">
-        <h1 className="text-xs sm:text-2xl font-semibold my-4">Your Music</h1>
-        <h1 className="text-xs sm:text-2xl font-semibold my-4">View All</h1>
-      </div>
-
-      {filteredMusic.length === 0 ? (
-        <p className="text-gray-400">No music found.</p>
-      ) : (
-        // <div className="mt-5 p-3 overflow-x-scroll overflow-y-hidden">
-        //   {filteredMusic.map(()=>(
-        //     <div>
-
-        //     </div>
-        //   ))}
-        // </div>
-        <motion.ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 bg-black/20 rounded-md overflow-y-scroll w-full max-h-[300px] p-2 sm:p-5">
-          <AnimatePresence mode="sync">
-            {filteredMusic.map((music) => (
-              <MusicCard
-                key={music.id}
-                music={music}
-                onRate={handleRate}
-                onToggleFavorite={handleToggleFavorite}
-                onRemove={handleRemoveSong}
-              />
-            ))}
-          </AnimatePresence>
-        </motion.ul>
-      )}
+      <MusicWrapper sectionTitle="Your Music" sectionLinkTitle="View All" musicList={filteredMusic} />
     </div>
   );
 }

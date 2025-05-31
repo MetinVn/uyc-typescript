@@ -31,6 +31,7 @@ export function useFormController<T extends Record<string, any>>(schema: ZodSche
 
   const resetForm = () => {
     setFormData(initialValues);
+    setErrors({});
   };
 
   return {

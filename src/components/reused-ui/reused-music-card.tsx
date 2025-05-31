@@ -86,34 +86,38 @@ export const MusicCard = ({ music, onRate, onToggleFavorite, onRemove }: IMusicC
             <BsThreeDotsVertical size={18} />
           </button>
 
-          {isMenuOpen && (
-            <div
-              ref={cardRef}
-              className="absolute overflow-hidden right-3 min-w-[140px] -top-[70px] w-32 z-50 bg-[#1e1e1e] border border-gray-700 rounded-md shadow-lg flex flex-col text-xs text-white"
-            >
-              <button
-                type="button"
-                onClick={() => {
-                  onToggleFavorite(music);
-                  setIsMenuOpen(false);
-                }}
-                className="hover:bg-white/10 p-2 text-left"
-              >
-                {music.starred ? "Remove from favorites" : "Add to favorites"}
-              </button>
+          <div
+            ref={cardRef}
+            className={`
+    absolute overflow-hidden right-3 -top-[70px] w-32 min-w-[140px] z-50
+    bg-[#1e1e1e] rounded-md shadow-lg flex flex-col text-xs text-left text-white
+    transform duration-200 ease-in-out
 
-              <button
-                type="button"
-                onClick={() => {
-                  onRemove(music);
-                  setIsMenuOpen(false);
-                }}
-                className="hover:bg-red-600/30 p-2 text-left text-red-300"
-              >
-                Delete
-              </button>
-            </div>
-          )}
+    ${isMenuOpen ? "opacity-100 visible scale-100" : "opacity-0 invisible scale-80"}
+  `}
+          >
+            <button
+              type="button"
+              onClick={() => {
+                onToggleFavorite(music);
+                setIsMenuOpen(false);
+              }}
+              className="hover:bg-white/10 text-left cursor-pointer p-2 transition"
+            >
+              {music.starred ? "Remove from favorites" : "Add to favorites"}
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                onRemove(music);
+                setIsMenuOpen(false);
+              }}
+              className="hover:bg-red-600/30 text-left cursor-pointer p-2 text-red-300 transition"
+            >
+              Delete
+            </button>
+          </div>
         </div>
       </div>
     </motion.li>
