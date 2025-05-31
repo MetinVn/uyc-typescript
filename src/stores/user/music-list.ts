@@ -29,22 +29,30 @@ export const useMusicList = create<IMusicList>()(
       },
       rateMusic: (rating, id) => {
         const list = get().music;
+        const index = list.findIndex((song) => song.id === id);
 
-        const updatedList = list.map((song) => {
-          if (song.id !== id) return song;
+        if (index === -1) return;
 
-          const newRating = song.rating === rating ? 0 : rating;
+        const updatedList = [...list];
+        const song = updatedList[index];
+        const newRating = song.rating === rating ? 0 : rating;
 
-          return { ...song, rating: newRating };
-        });
+        updatedList[index] = { ...song, rating: newRating };
 
         set({ music: updatedList });
       },
 
       makeFavorite: (id) => {
         const list = get().music;
-        const newList = list.map((song) => (song.id === id ? { ...song, starred: !song.starred } : song));
-        set({ music: newList });
+        const index = list.findIndex((song) => song.id === id);
+        if (index === -1) return;
+
+        const listCopy = [...list];
+        const song = listCopy[index];
+
+        listCopy[index] = { ...song, starred: !song.starred };
+
+        set({ music: listCopy });
       },
       clearMusicList: () => set({ music: [] }),
     }),
