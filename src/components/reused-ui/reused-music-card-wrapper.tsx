@@ -4,13 +4,13 @@ import { MusicCard } from "./reused-music-card";
 import { uycmusic } from "../../stores/user/music-list";
 import { notify } from "../../stores/shared/notification";
 
-interface IMusicWrapper {
+interface IMusicCardWrapper {
   musicList: Music[];
   sectionTitle: string;
   sectionLinkTitle: string;
 }
 
-export const MusicWrapper = ({ musicList, sectionTitle, sectionLinkTitle }: IMusicWrapper) => {
+export const MusicCardWrapper = ({ musicList, sectionTitle, sectionLinkTitle }: IMusicCardWrapper) => {
   const handleRemoveSong = (song: Music) => {
     uycmusic.remove(song.id);
     notify.success(`${song.title} removed`, 1500);

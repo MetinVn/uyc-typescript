@@ -2,7 +2,7 @@ import { useMusicList } from "../stores/user/music-list";
 import { useState } from "react";
 import { CustomLink } from "../components/reused-ui/reused-router-link";
 import { ROUTES } from "../routes/routes";
-import { MusicWrapper } from "../components/reused-ui/reused-music-wrapper";
+import { MusicCardWrapper } from "../components/reused-ui/reused-music-card-wrapper";
 
 export default function MusicPage() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -90,7 +90,7 @@ export default function MusicPage() {
           </button>
         </div>
       </div>
-      <MusicWrapper sectionTitle="Your Music" sectionLinkTitle="View All" musicList={filteredMusic} />
+      <MusicCardWrapper sectionTitle="Your Music" sectionLinkTitle="View All" musicList={filteredMusic} />
     </div>
   );
 }
