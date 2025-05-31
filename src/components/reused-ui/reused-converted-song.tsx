@@ -25,7 +25,7 @@ export const ConvertedSongUI = () => {
       2500
     );
 
-    converted.add({ ...displayItem, rating: alreadyRated ? null : star });
+    converted.add({ ...displayItem, rating: alreadyRated ? 0 : star });
   };
 
   const handleFavorite = () => {
@@ -89,7 +89,7 @@ export const ConvertedSongUI = () => {
         </div>
 
         {/* Favorite Button */}
-        <div className="flex sm:items-start items-end justify-end sm:pt-1 sm:pl-4">
+        <div className="flex sm:items-center items-center justify-end">
           <button
             onClick={handleFavorite}
             disabled={!isEmailVerified}
