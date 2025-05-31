@@ -93,7 +93,13 @@ export const ConvertedSongUI = () => {
           <button
             onClick={handleFavorite}
             disabled={!isEmailVerified}
-            title={!isEmailVerified ? "Login to favorite" : "Favorite this song"}
+            title={
+              !isEmailVerified
+                ? "Login to favorite"
+                : displayItem.starred
+                ? "Unfavorite this song"
+                : "Favorite this song"
+            }
             className={`text-yellow-400 hover:text-yellow-500 transition p-2 rounded-full ${
               isEmailVerified ? "cursor-pointer" : "opacity-50 cursor-not-allowed"
             }`}

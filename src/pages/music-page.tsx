@@ -33,7 +33,7 @@ export default function MusicPage() {
   }
 
   return (
-    <div className="min-h-screen h-auto bg-[var(--account-page-bg)] text-white p-2 sm:p-6 sm:pb-30 overflow-hidden">
+    <div className="min-h-screen h-auto bg-[var(--account-page-bg)] text-white p-2 pt-5 sm:px-6 sm:py-10 overflow-hidden">
       <div className="mb-3">
         <CustomLink path={ROUTES.HOME} title="Back" />
       </div>
