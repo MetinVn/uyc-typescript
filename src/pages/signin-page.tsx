@@ -29,6 +29,7 @@ export default function SignInComponent() {
     }
     try {
       const user = await signInWithEmailPassword(validated.email, validated.password);
+      user.reload();
 
       if (user && !user.emailVerified) {
         await signOutCurrentUser();
@@ -42,7 +43,7 @@ export default function SignInComponent() {
       setErrors({});
       notify.success(`Welcome ${user.displayName || "User"}`, 3500);
       success();
-      before(500);
+      before();
       setTimeout(() => {
         navigate(ROUTES.HOME);
       }, 1000);

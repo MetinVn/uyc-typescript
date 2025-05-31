@@ -36,7 +36,7 @@ export default function SignUpComponent() {
       const user = await signUpWithEmailPassword(validated.email, validated.password, validated.displayName);
       await sendVerificationEmail(user);
       await signOutCurrentUser();
-      notify.info("Email verification link has been sent to your inbox! Please verify your email to sign in", 3500);
+      notify.success("Email verification link has been sent to your inbox! Please verify your email to sign in", 3500);
       success();
       resetForm();
       setErrors({});
@@ -46,13 +46,22 @@ export default function SignUpComponent() {
       }, 500);
       return true;
     } catch (error) {
-      notify.error("Please choose different provider to sign in", 2500);
+      if (error instanceof FirebaseError) {
+        notify.error(error.message, 2500);
+        setErrors({
+          displayName: "Unexpected error happened",
+          email: error.message,
+          password: "Unexpected error happened",
+        });
+      } else {
+        notify.error("Please choose different provider to sign in", 2500);
+        setErrors({
+          displayName: "Unexpected error happened",
+          email: "Unexpected error happened",
+          password: "Unexpected error happened",
+        });
+      }
       failed();
-      setErrors({
-        displayName: "Unexpected error happened",
-        email: "Unexpected error happened",
-        password: "Unexpected error happened",
-      });
       return false;
     } finally {
       before();

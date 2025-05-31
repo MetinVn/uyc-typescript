@@ -12,8 +12,8 @@ export const GuestProfile = () => {
   const featuresToUnlock = [
     { icon: "★", label: "Favorite songs" },
     { icon: "✩", label: "Rate songs" },
-    { icon: "♫", label: "Track conversions" },
-    { icon: "💿", label: "Get recommended playlists" },
+    { icon: "♫", label: "Playlists" },
+    { icon: "💿", label: "Recommended playlists" },
     { icon: "🎬", label: "Convert to MP4" },
   ];
 

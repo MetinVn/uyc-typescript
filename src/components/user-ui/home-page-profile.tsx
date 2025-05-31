@@ -17,6 +17,7 @@ export const UserProfile = ({ user }: { user: User }) => {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const resetFormat = useMusicFormat((state) => state.resetFormat);
+  const setFormat = useMusicFormat((state) => state.setFormat);
   useHandleOutsideClicks({ isActive: expand, ref: dropdownRef, stateChanger: setExpand });
 
   const handleLogOutPopup = () => {
@@ -26,7 +27,8 @@ export const UserProfile = ({ user }: { user: User }) => {
   const handleSignOut = async () => {
     const result = await signOutCurrentUser();
     if (result) {
-      resetFormat();
+      // resetFormat();
+      setFormat("mp3");
       notify.success("Signed out succesfully", 2500);
       return;
     }
