@@ -88,7 +88,7 @@ export const MusicCard = ({ music, onRate, onToggleFavorite, onRemove }: IMusicC
 
           <div
             className={` absolute overflow-hidden right-3 -top-[70px] w-32 min-w-[140px] z-50 bg-[#1e1e1e] rounded-md shadow-lg flex flex-col text-xs text-left text-white transform duration-200 ease-in-out ${
-              isMenuOpen ? "opacity-100 visible scale-100" : "opacity-0 invisible scale-80"
+              isMenuOpen ? "opacity-100 visible scale-100" : "opacity-0 invisible scale-80 pointer-events-none"
             }`}
           >
             <button
