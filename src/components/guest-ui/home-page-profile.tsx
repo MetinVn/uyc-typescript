@@ -13,7 +13,6 @@ export const GuestProfile = () => {
     { icon: "★", label: "Favorite songs" },
     { icon: "✩", label: "Rate songs" },
     { icon: "♫", label: "Playlists" },
-    { icon: "💿", label: "Recommended playlists" },
     { icon: "🎬", label: "Convert to MP4" },
   ];
 
