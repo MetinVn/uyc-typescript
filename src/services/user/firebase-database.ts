@@ -2,7 +2,7 @@ import { collection, deleteDoc, getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
 import { EmailAuthProvider, reauthenticateWithCredential, User } from "firebase/auth";
 
-export async function deleteUserData(userId: string): Promise<boolean> {
+export async function deleteUserData(userId: User["uid"]): Promise<boolean> {
   try {
     const mp3sRef = collection(db, `users/${userId}/mp3s`);
     const mp3sSnapshot = await getDocs(mp3sRef);

@@ -14,7 +14,7 @@ export async function ConvertToMP3(youtubeLinkRef: React.RefObject<string>, id: 
   if (youtubeLinkRef.current.trim() === "") {
     notify.error("Link can not be empty", 1000);
     failed();
-    before(1000);
+    before();
     return false;
   }
 
@@ -22,7 +22,7 @@ export async function ConvertToMP3(youtubeLinkRef: React.RefObject<string>, id: 
   if (!youtubeId) {
     notify.error("Please enter valid YouTube link", 1500);
     failed();
-    before(1000);
+    before();
     return false;
   }
 
@@ -66,13 +66,13 @@ export async function ConvertToMP3(youtubeLinkRef: React.RefObject<string>, id: 
     }
     converted.add(music);
     success();
-    before(1000);
+    before();
     notify.success("Link has been converted successfully", 2500);
     return true;
   } catch (error) {
     notify.error("Failed to convert", 1500);
     failed();
-    before(1000);
+    before();
     console.log(error);
     return false;
   }
