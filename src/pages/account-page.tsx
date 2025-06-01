@@ -96,8 +96,8 @@ export default function Account() {
       if (!authenticated) {
         editPassAnimation.error();
         editPassAnimation.default();
-        editProfilePassForm.setErrors({ currentPassword: "Failed to authenticate", password: "" });
-        notify.error("Password is incorrect, please try again");
+        editProfilePassForm.setErrors({ currentPassword: "Password is incorrect", password: "" });
+        notify.error("Password is incorrect, please try again", 2500);
         return false;
       }
 
@@ -157,7 +157,7 @@ export default function Account() {
 
     uycmusic.destroy();
     deleteProfileForm.setErrors({ currentPassword: "" });
-    notify.warning("Your account has been successfully deleted! Farewell!", 4000);
+    notify.warning("Your account has been successfully deleted!", 4000);
     deleteAnimation.success();
     deleteAnimation.default();
     setShowDeleteModal(false);

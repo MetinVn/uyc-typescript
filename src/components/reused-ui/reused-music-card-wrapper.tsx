@@ -41,8 +41,8 @@ export const MusicCardWrapper = ({ musicList, sectionTitle, sectionLinkTitle }: 
   return (
     <>
       <div className="flex justify-between items-center">
-        <h1 className="text-xs sm:text-2xl font-semibold my-4">{sectionTitle}</h1>
-        <h1 className="text-xs sm:text-2xl font-semibold my-4">{sectionLinkTitle}</h1>
+        <h1 className="text-xs sm:text-lg font-semibold my-4">{sectionTitle}</h1>
+        <h1 className="text-xs sm:text-lg font-semibold my-4">{sectionLinkTitle}</h1>
       </div>
 
       {musicList.length === 0 ? (

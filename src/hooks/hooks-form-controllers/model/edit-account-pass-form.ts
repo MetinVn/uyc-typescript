@@ -2,8 +2,11 @@ import { z } from "zod";
 import { useFormController } from "../controller/form-controller";
 
 const editProfilePassSchema = z.object({
-  currentPassword: z.string().min(6, "Password too short").max(35, "Password too long"),
-  password: z.string().min(6, "Password too short"),
+  currentPassword: z
+    .string()
+    .min(6, "Password must be at least 6 characters")
+    .max(35, "Password can't exceed 35 characters"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
 });
 
 export type EditProfilePassFormData = z.infer<typeof editProfilePassSchema>;
