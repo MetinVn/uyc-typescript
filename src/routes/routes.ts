@@ -7,4 +7,5 @@ export const ROUTES = {
   },
   MUSIC: "/my-music",
   FORGOT_PASSWORD: "/forgot-password",
+  ROUTE_NOT_FOUND: "*",
 };
