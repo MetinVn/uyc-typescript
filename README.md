@@ -24,10 +24,7 @@ This app allows users to convert YouTube videos to MP3/MP4, manage their convert
 
 ## Demo
 
-![App Demo](link-to-your-demo.gif)
-
-<!-- Or for a video: -->
-<!-- [![Watch the demo](https://img.youtube.com/vi/VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=VIDEO_ID) -->
+![App Demo](public/demo.gif)
 
 ---
 
