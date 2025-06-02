@@ -127,7 +127,7 @@ This project uses a modern React + TypeScript stack. Here’s what each technolo
   User authentication (email/password and Google sign-in) and persistent storage are handled via Firebase. The [`src/firebase.ts`](src/firebase.ts) file sets up the Firebase app, and related logic is abstracted in the `services/` folder.
 
 - **Reusable Form Controllers & Validation:**  
-  The `hooks/` folder contains custom hooks for form models and controllers (for example, `hooks-form-controllers/model/signin-form.ts`, `signup-form.ts`, and others). These are reused across pages like [Sign In](pages/signin-page.tsx), [Sign Up](pages/signup-page.tsx), and [Reset Password](pages/reset-password-page.tsx) to handle form state, validation, and error management in a consistent way.
+  The `hooks/` folder contains custom hooks for form models and controllers (for example, `hooks-form-controllers/model/signin-form.ts`, `signup-form.ts`, and others). These are reused across pages like [Sign In](src/pages/signin-page.tsx), [Sign Up](src/pages/signup-page.tsx), and [Reset Password](src/pages/reset-password-page.tsx) to handle form state, validation, and error management in a consistent way.
 
 - **Custom Notifications with Framer Motion:**  
   The notification system ([`src/components/notifications.tsx`](src/components/notifications.tsx)) uses Framer Motion for smooth entrance/exit animations, providing a modern and responsive user feedback experience.
