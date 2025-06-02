@@ -15,6 +15,7 @@ import { useDeleteProfileForm } from "../hooks/hooks-form-controllers/model/dele
 import { ROUTES } from "../routes/routes";
 import { useEditProfilePassForm } from "../hooks/hooks-form-controllers/model/edit-account-pass-form";
 import { FormModal } from "../components/reused-ui/reused-form-modal";
+import { converted } from "../stores/shared/converted-song";
 
 export default function Account() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -159,6 +160,7 @@ export default function Account() {
     }
 
     uycmusic.destroy();
+    converted.clear();
     deleteProfileForm.setErrors({ currentPassword: "" });
     deleteProfileForm.resetForm();
     notify.warning("Your account has been successfully deleted!", 4000);

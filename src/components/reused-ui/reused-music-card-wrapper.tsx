@@ -5,6 +5,7 @@ import { MusicCard } from "./reused-music-card";
 import { uycmusic } from "../../stores/user/music-list";
 import { notify } from "../../stores/shared/notification";
 import { SortSelect, SortOptions } from "./reused-sort-options";
+import { useConvertedSong } from "../../stores/shared/converted-song";
 
 interface IMusicCardWrapper {
   musicList: Music[];
@@ -13,9 +14,11 @@ interface IMusicCardWrapper {
 
 export const MusicCardWrapper = ({ musicList, sectionTitle }: IMusicCardWrapper) => {
   const [sortOption, setSortOption] = useState<SortOptions>("");
+  const removeFromConverted = useConvertedSong((state) => state.removeFromConverted);
 
   const handleRemoveSong = (song: Music) => {
     uycmusic.remove(song.id);
+    removeFromConverted(song.id);
     notify.success(`${song.title} removed`, 1500);
   };
 
@@ -41,7 +44,7 @@ export const MusicCardWrapper = ({ musicList, sectionTitle }: IMusicCardWrapper)
 
   const sortedMusicList = [...musicList].sort((a, b) => {
     if (sortOption === "rating") return b.rating - a.rating;
-    if (sortOption === "duration") return b.duration - a.duration;
+    if (sortOption === "size") return b.fileSize - a.fileSize;
     if (sortOption === "name") return a.title.localeCompare(b.title);
     return 0;
   });

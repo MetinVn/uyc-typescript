@@ -6,6 +6,7 @@ interface IConvertedSong {
   song: Music | null;
   addToConverted: (song: Music) => void;
   clearSong: () => void;
+  removeFromConverted: (songId: string) => void;
 }
 
 let expirationTimeout: ReturnType<typeof setTimeout> | null = null;
@@ -29,6 +30,11 @@ export const useConvertedSong = create<IConvertedSong>()(
         clearTimeout(expirationTimeout!);
         expirationTimeout = null;
         set({ song: null });
+      },
+      removeFromConverted: (songId: string) => {
+        if (get().song?.id === songId) {
+          set({ song: null });
+        }
       },
     }),
     {

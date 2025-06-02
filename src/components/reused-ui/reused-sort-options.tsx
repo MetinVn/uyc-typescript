@@ -4,11 +4,11 @@ import { useHandleOutsideClicks } from "../../hooks/hook-outside-clicks";
 
 const sortOptions = [
   { value: "rating", label: "Rating" },
-  { value: "duration", label: "Duration" },
+  { value: "size", label: "File size" },
   { value: "name", label: "From A to Z" },
 ];
 
-export type SortOptions = "rating" | "duration" | "name" | "";
+export type SortOptions = "rating" | "size" | "name" | "";
 
 interface ISortSelectProps {
   selected: SortOptions;

@@ -8,6 +8,7 @@ import { useHandleOutsideClicks } from "../../hooks/hook-outside-clicks";
 import { signOutCurrentUser } from "../../services/user/firebase";
 import { notify } from "../../stores/shared/notification";
 import { useMusicFormat } from "../../stores/shared/format-change";
+import { converted } from "../../stores/shared/converted-song";
 
 export const UserProfile = ({ user }: { user: User }) => {
   const [expand, setExpand] = useState(false);
@@ -27,6 +28,8 @@ export const UserProfile = ({ user }: { user: User }) => {
     const result = await signOutCurrentUser();
     if (result) {
       resetFormat();
+      converted.clear();
+      setConfirmLogOut(false);
       notify.success("Signed out succesfully", 2500);
       return true;
     }
