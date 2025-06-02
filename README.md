@@ -22,6 +22,15 @@ This app allows users to convert YouTube videos to MP3/MP4, manage their convert
 
 ---
 
+## Demo
+
+![App Demo](link-to-your-demo.gif)
+
+<!-- Or for a video: -->
+<!-- [![Watch the demo](https://img.youtube.com/vi/VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=VIDEO_ID) -->
+
+---
+
 ## How I worked on this project
 
 My initial goal for this project was simple: I wanted to create a tool for myself—a clean environment with no ads, no annoying reminders or popups, where I could easily convert and download my favorite music from YouTube.
@@ -84,10 +93,12 @@ src/
 
 **Key files to check out:**
 
-- [`src/components/reused-ui/reused-music-card-wrapper.tsx`](src/components/reused-ui/reused-music-card-wrapper.tsx): Main music card grid logic.
-- [`src/pages/music-page.tsx`](src/pages/music-page.tsx): Music library page, uses the wrapper.
-- [`src/stores/user/music-list.ts`](src/stores/user/music-list.ts): Zustand store for user music.
-- [`src/utils/convert-to-mp3.ts`](src/utils/convert-to-mp3.ts): Handles YouTube to MP3 conversion logic.
+- [`src/stores/shared/converted-song.ts`](src/stores/shared/converted-song.ts): Handles converted song state, including expiration and cleanup logic.
+- [`src/stores/shared/notification.ts`](src/stores/shared/notification.ts): Manages notification state and logic.
+- [`src/hooks/hooks-form-controllers/`](src/hooks/hooks-form-controllers/): Reusable form logic for authentication and account management.
+- [`src/utils/convert-to-mp3.ts`](src/utils/convert-to-mp3.ts): YouTube to MP3 conversion logic.
+
+These files cover the core state management, reusable logic, and main features of the app.
 
 ---
 
