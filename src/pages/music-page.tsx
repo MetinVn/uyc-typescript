@@ -27,6 +27,11 @@ export default function MusicPage() {
       </div>
 
       <MusicCardWrapper sectionTitle="Your Music" sectionLinkTitle="View All" musicList={filteredMusic} />
+
+      <div>
+        Another section can be added here, for example, to display favorite music or recently played tracks and videos
+        also.
+      </div>
     </div>
   );
 }

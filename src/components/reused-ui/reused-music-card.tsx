@@ -35,8 +35,8 @@ export const MusicCard = ({ music, onRate, onToggleFavorite, onRemove }: IMusicC
       transition={{ duration: 0.3 }}
       className={`${
         music.starred
-          ? "border-amber-400 bg-[#3e3e3e] hover:bg-amber-100/10 hover:shadow-lg hover:shadow-amber-500/30 shadow-amber-300/20"
-          : "border-transparent hover:bg-black/10 hover:shadow-inner"
+          ? "border-amber-400 bg-[#3e3e3e] lg:bg-transparent hover:bg-amber-100/10 hover:shadow-lg hover:shadow-amber-500/30 shadow-amber-300/20"
+          : "border-transparent bg-black/10 lg:bg-transparent hover:bg-black/10 hover:shadow-inner"
       } border rounded-xl p-1 sm:p-4 flex flex-col justify-between transition`}
     >
       <div className="relative w-full h-45 sm:h-50 rounded-lg overflow-hidden">
