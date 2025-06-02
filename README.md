@@ -112,22 +112,22 @@ If I had more time, I would:
 
 ## Technology & Implementation Details
 
-This project leverages a modern React + TypeScript stack, with a focus on modularity, reusability, and smooth user experience. Here’s how the main technologies and patterns are used throughout the codebase:
+This project uses a modern React + TypeScript stack. Here’s what each technology is used for:
 
 - **React & TypeScript:**  
-  The entire UI is built with React functional components and hooks, using TypeScript for type safety and maintainability. This ensures robust code and easier refactoring as the project grows.
-
-- **Vite:**  
-  Vite is used as the build tool for fast development and optimized production builds.
+  For building the UI with type safety.
 
 - **State Management with Zustand:**  
-  All global state (such as the user's music list, notifications, and format selection) is managed using Zustand. This lightweight state management library allows for simple, scalable, and performant state logic without boilerplate.
+  All global state (such as the user's music list, notifications, and format selection) is managed using Zustand for now. User data is currently stored locally, but I plan to implement saving user data to Firebase soon for better persistence and cross-device support.
+
+- **Form Validation with Zod:**  
+  Zod is used to define schemas for form validation and authorization. This ensures that all user input is validated against strict rules, improving both security and user experience across all forms.
 
 - **Authentication & Persistence with Firebase:**  
   User authentication (email/password and Google sign-in) and persistent storage are handled via Firebase. The [`src/firebase.ts`](src/firebase.ts) file sets up the Firebase app, and related logic is abstracted in the `services/` folder.
 
 - **Reusable Form Controllers & Validation:**  
-  The `hooks/` folder contains custom hooks for form models and controllers (for example, `hooks-form-controllers/model/signin-form.ts` and `signup-form.ts`). These are reused across pages like [Sign In](pages/signin-page.tsx) and [Sign Up](pages/signup-page.tsx) to handle form state, validation, and error management in a consistent way.
+  The `hooks/` folder contains custom hooks for form models and controllers (for example, `hooks-form-controllers/model/signin-form.ts`, `signup-form.ts`, and others). These are reused across pages like [Sign In](pages/signin-page.tsx), [Sign Up](pages/signup-page.tsx), and [Reset Password](pages/reset-password-page.tsx) to handle form state, validation, and error management in a consistent way.
 
 - **Custom Notifications with Framer Motion:**  
   The notification system ([`src/components/notifications.tsx`](src/components/notifications.tsx)) uses Framer Motion for smooth entrance/exit animations, providing a modern and responsive user feedback experience.
