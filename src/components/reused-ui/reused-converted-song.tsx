@@ -40,6 +40,15 @@ export const ConvertedSongUI = () => {
     converted.add({ ...displayItem, starred: !isFav });
   };
 
+  const handleCopyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(displayItem.youtubeLink);
+      notify.success(`${displayItem.title} link copied to clipboard`, 2000);
+    } catch (error) {
+      notify.error("Failed to copy link to clipboard", 2000);
+    }
+  };
+
   return (
     <AnimatePresence mode="wait">
       <motion.div
@@ -48,7 +57,7 @@ export const ConvertedSongUI = () => {
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.3, ease: "easeIn" }}
-        className="w-full max-w-[570px] p-4 mx-auto mt-4 rounded-md text-sm text-white flex flex-col sm:flex-row gap-4 border border-white/10"
+        className="w-full max-w-[570px] p-4 mx-auto mt-4 rounded-md text-sm text-white flex flex-col sm:flex-row gap-4 border border-white/10 hover:bg-white/5 transition-colors"
       >
         {/* Content */}
         <div className="flex-1 flex flex-col gap-3">
@@ -62,12 +71,21 @@ export const ConvertedSongUI = () => {
             {displayItem.title}
           </a>
 
-          <ul className="flex items-center gap-3 text-xs flex-wrap">
+          <ul className="flex items-center gap-3 text-xs flex-wrap w-fit">
             <li>
               <strong>Duration:</strong> {formatDuration(displayItem.duration)}
             </li>
             <li>
               <strong>Size:</strong> {formatSize(displayItem.fileSize)}
+            </li>
+            <li>
+              <button
+                onClick={handleCopyLink}
+                className="hover:text-blue-400 cursor-pointer transition"
+                title="Copy YouTube link"
+              >
+                <strong>Copy Link</strong>
+              </button>
             </li>
             <li className="flex items-center">
               <strong>Rating:</strong>
