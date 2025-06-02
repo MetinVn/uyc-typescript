@@ -67,11 +67,7 @@ export const MusicCard = ({ music, onRate, onToggleFavorite, onRemove }: IMusicC
                 className="p-1 cursor-pointer rounded hover:fill-yellow-400 text-[10px] sm:text-xs transition"
                 title={`Rate ${n} star${n > 1 ? "s" : ""}`}
               >
-                {n <= (music.rating ?? 0) ? (
-                  <FaStar className="text-yellow-400" />
-                ) : (
-                  <FaRegStar className="text-gray-400" />
-                )}
+                {n <= music.rating ? <FaStar className="text-yellow-400" /> : <FaRegStar className="text-gray-400" />}
               </button>
             ))}
           </div>
