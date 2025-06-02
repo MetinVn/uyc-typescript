@@ -92,7 +92,7 @@ export default function Account() {
     }
 
     try {
-      const authenticated = await reauthenticateUser(user, data.password);
+      const authenticated = await reauthenticateUser(user, data.currentPassword);
       if (!authenticated) {
         editPassAnimation.error();
         editPassAnimation.default();
