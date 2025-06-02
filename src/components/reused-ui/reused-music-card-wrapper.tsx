@@ -1,16 +1,19 @@
+import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Music } from "../../types/types-converted-music";
 import { MusicCard } from "./reused-music-card";
 import { uycmusic } from "../../stores/user/music-list";
 import { notify } from "../../stores/shared/notification";
+import { SortSelect, SortOptions } from "./reused-sort-options";
 
 interface IMusicCardWrapper {
   musicList: Music[];
   sectionTitle: string;
-  sectionLinkTitle: string;
 }
 
-export const MusicCardWrapper = ({ musicList, sectionTitle, sectionLinkTitle }: IMusicCardWrapper) => {
+export const MusicCardWrapper = ({ musicList, sectionTitle }: IMusicCardWrapper) => {
+  const [sortOption, setSortOption] = useState<SortOptions>("");
+
   const handleRemoveSong = (song: Music) => {
     uycmusic.remove(song.id);
     notify.success(`${song.title} removed`, 1500);
@@ -36,19 +39,30 @@ export const MusicCardWrapper = ({ musicList, sectionTitle, sectionLinkTitle }: 
     notify.success(`Rated ${music.title} with ${rating} star${rating > 1 ? "s" : ""}`, 2500);
   };
 
+  const sortedMusicList = [...musicList].sort((a, b) => {
+    if (sortOption === "rating") return b.rating - a.rating;
+    if (sortOption === "duration") return b.duration - a.duration;
+    if (sortOption === "name") return a.title.localeCompare(b.title);
+    return 0;
+  });
+
   return (
     <>
       <div className="flex justify-between items-center text-xs sm:text-lg my-4 font-semibold">
         <h1>{sectionTitle}</h1>
-        <h1>{sectionLinkTitle}</h1>
       </div>
 
-      {musicList.length === 0 ? (
+      <div className="mb-2 flex justify-start items-center text-xs sm:text-lg font-semibold gap-4">
+        <h1 className="">Sort by: </h1>
+        <SortSelect selected={sortOption} onChange={setSortOption} />
+      </div>
+
+      {sortedMusicList.length === 0 ? (
         <p className="text-gray-400">No music found.</p>
       ) : (
         <motion.ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 bg-black/20 shadow-inner rounded-md border-2 border-[#383838] overflow-y-scroll overflow-x-hidden w-full max-h-[370px] p-2 sm:p-3">
           <AnimatePresence mode="sync">
-            {musicList.map((music) => (
+            {sortedMusicList.map((music) => (
               <MusicCard
                 key={music.id}
                 music={music}

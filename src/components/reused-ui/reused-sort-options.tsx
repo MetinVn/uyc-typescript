@@ -1,0 +1,71 @@
+import { useState, useRef } from "react";
+import { FiChevronDown } from "react-icons/fi";
+import { useHandleOutsideClicks } from "../../hooks/hook-outside-clicks";
+
+const sortOptions = [
+  { value: "rating", label: "Rating" },
+  { value: "duration", label: "Duration" },
+  { value: "name", label: "From A to Z" },
+];
+
+export type SortOptions = "rating" | "duration" | "name" | "";
+
+interface ISortSelectProps {
+  selected: SortOptions;
+  onChange: (option: SortOptions) => void;
+}
+
+export const SortSelect = ({ selected, onChange }: ISortSelectProps) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useHandleOutsideClicks({ isActive: isOpen, ref: dropdownRef, stateChanger: setIsOpen });
+
+  const handleSelect = (option: SortOptions) => {
+    if (selected === option) {
+      onChange("");
+    } else {
+      onChange(option);
+    }
+    setIsOpen(false);
+  };
+
+  const displayLabel = sortOptions.find((opt) => opt.value === selected)?.label || "Sort by";
+
+  return (
+    <div ref={dropdownRef} className="relative w-fit min-w-[150px] text-sm">
+      <button
+        title="Sort music"
+        type="button"
+        onClick={() => setIsOpen((prev) => !prev)}
+        className="w-full cursor-pointer text-[var(--custom-select-text)] bg-[var(--custom-select-bg)] hover:bg-[var(--custom-select-bg-hover)] min-h-10 p-2 rounded-md flex justify-between items-center transition"
+      >
+        <span>{displayLabel}</span>
+        <FiChevronDown className={`transition-transform ${isOpen ? "-rotate-90" : ""}`} />
+      </button>
+
+      <div
+        className={`absolute ${
+          isOpen ? "translate-y-4 visible opacity-100" : "translate-y-0 invisible opacity-0"
+        } w-full transition-all rounded-md z-50 bg-[var(--custom-select-bg)] overflow-hidden`}
+      >
+        {sortOptions.map((option) => (
+          <button
+            title={option.label}
+            type="button"
+            key={option.value}
+            onClick={() => handleSelect(option.value as SortOptions)}
+            className={`px-4 py-2 w-full text-[var(--custom-select-text)] text-left transition
+              ${
+                selected === option.value
+                  ? "bg-[var(--custom-select-bg-hover)] font-semibold"
+                  : "cursor-pointer hover:bg-[var(--custom-select-bg-hover)]"
+              }`}
+          >
+            {option.label}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+};
