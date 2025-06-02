@@ -64,6 +64,7 @@ export default function Account() {
       await changeName(user, data.displayName!);
       notify.success("Name updated successfully.", 1500);
       editProfileNameForm.setErrors({ displayName: "" });
+      editProfileNameForm.resetForm();
       editNameAnimation.success();
       editNameAnimation.default();
       setTimeout(() => {
@@ -111,6 +112,8 @@ export default function Account() {
       }
 
       editPassAnimation.success();
+      editPassAnimation.default();
+      editProfilePassForm.resetForm();
       notify.success("Password updated successfully.", 1500);
       setShowEditPass(false);
       editProfilePassForm.setErrors({ currentPassword: "", password: "" });
@@ -157,6 +160,7 @@ export default function Account() {
 
     uycmusic.destroy();
     deleteProfileForm.setErrors({ currentPassword: "" });
+    deleteProfileForm.resetForm();
     notify.warning("Your account has been successfully deleted!", 4000);
     deleteAnimation.success();
     deleteAnimation.default();
