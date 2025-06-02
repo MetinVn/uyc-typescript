@@ -36,8 +36,6 @@ export const MusicCardWrapper = ({ musicList, sectionTitle, sectionLinkTitle }: 
     notify.success(`Rated ${music.title} with ${rating} star${rating > 1 ? "s" : ""}`, 2500);
   };
 
-  const sliced = musicList.slice(0, 6);
-
   return (
     <>
       <div className="flex justify-between items-center text-xs sm:text-lg my-4 font-semibold">
@@ -50,7 +48,7 @@ export const MusicCardWrapper = ({ musicList, sectionTitle, sectionLinkTitle }: 
       ) : (
         <motion.ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 bg-black/20 shadow-inner rounded-md border-2 border-[#383838] overflow-y-scroll overflow-x-hidden w-full max-h-[370px] p-2 sm:p-3">
           <AnimatePresence mode="sync">
-            {sliced.map((music) => (
+            {musicList.map((music) => (
               <MusicCard
                 key={music.id}
                 music={music}

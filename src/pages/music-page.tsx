@@ -16,7 +16,6 @@ export default function MusicPage() {
         <CustomLink path={ROUTES.HOME} title="Back" />
       </div>
 
-      {/* Search + Sort Controls: always visible */}
       <div className="flex flex-col justify-center gap-4 items-center pt-3 sm:pt-0 w-full">
         <input
           type="text"
