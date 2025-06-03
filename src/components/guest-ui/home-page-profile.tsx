@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import placeholder from "/src/images/music-photo.jpg";
+import placeholder from "../../../public/Illustrator Rodney Pike Photoshopped Mr_ Bean into Famous Paintings, And It's All Kinds of Amazing.jpg";
 import { ROUTES } from "../../routes/routes";
 import { CustomLink } from "../reused-ui/reused-router-link";
 import { useHandleOutsideClicks } from "../../hooks/hook-outside-clicks";
@@ -29,7 +29,7 @@ export const GuestProfile = () => {
           src={placeholder}
           alt="profile"
           draggable={false}
-          className="w-15 h-15 rounded-full object-cover object-center"
+          className="w-15 h-15 rounded-full object-cover object-top"
         />
         <h1 className="px-2 text-[var(--homepage-profile-user-name)]">Guest Account</h1>
       </div>

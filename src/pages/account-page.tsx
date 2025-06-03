@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { FiEdit2 } from "react-icons/fi";
-import placeholder from "../images/profilePic.avif";
 import { Link, useOutletContext } from "react-router-dom";
 import { User } from "firebase/auth";
 import { notify } from "../stores/shared/notification";
@@ -16,6 +15,7 @@ import { ROUTES } from "../routes/routes";
 import { useEditProfilePassForm } from "../hooks/hooks-form-controllers/model/edit-account-pass-form";
 import { FormModal } from "../components/reused-ui/reused-form-modal";
 import { converted } from "../stores/shared/converted-song";
+import ImageLoader from "../utils/img-loader";
 
 export default function Account() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -180,11 +180,11 @@ export default function Account() {
         {/* Account Info */}
         <section className="bg-[#4c4c4c] p-4 sm:p-6 rounded-2xl shadow-md flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="flex items-center space-x-4">
-            <img
-              src={user.photoURL || placeholder}
-              alt="Profile"
+            <ImageLoader
+              loading="eager"
               className="w-14 h-14 sm:w-16 sm:h-16 rounded-full object-cover"
-              draggable={false}
+              alt="Profile image"
+              imgSrc={user.photoURL}
             />
             <div>
               <div className="text-base sm:text-lg flex items-center gap-3">

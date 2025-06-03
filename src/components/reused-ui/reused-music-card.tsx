@@ -3,10 +3,10 @@ import { motion } from "framer-motion";
 import { FaStar, FaRegStar } from "react-icons/fa";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { Music } from "../../types/types-converted-music";
-import placeholder from "../../images/profilePic.avif";
 import { formatDuration } from "../../utils/format-music-duration";
 import { formatSize } from "../../utils/format-music-size";
 import { useHandleOutsideClicks } from "../../hooks/hook-outside-clicks";
+import ImageLoader from "../../utils/img-loader";
 
 interface IMusicCard {
   music: Music;
@@ -40,12 +40,7 @@ export const MusicCard = ({ music, onRate, onToggleFavorite, onRemove }: IMusicC
       } border rounded-xl p-1 sm:p-4 flex flex-col justify-between transition`}
     >
       <div className="relative w-full h-45 sm:h-50 rounded-lg overflow-hidden">
-        <img
-          src={music.thumbnail || placeholder}
-          alt={music.title}
-          className="w-full h-full object-cover object-center"
-          draggable={false}
-        />
+        <ImageLoader className="w-full h-full object-cover object-center" alt={music.title} imgSrc={music.thumbnail} />
         <p className="absolute bottom-1 right-1 bg-black/60 text-white text-[10px] sm:text-xs px-2 py-0.5 rounded">
           {formatDuration(music.duration)}
         </p>
