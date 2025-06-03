@@ -42,7 +42,7 @@ export const UserProfile = ({ user }: { user: User }) => {
       {/* Desktop view profile */}
       <div
         onClick={handleToggle}
-        className="hidden sm:flex items-center gap-1 p-1 rounded-full cursor-pointer bg-[var(--gray-800)] hover:opacity-90 active:bg-[var(--gray-700)] transition"
+        className="hidden sm:flex items-center gap-1 p-1 rounded-full cursor-pointer bg-[var(--gray-800)] hover:opacity-90 active:bg-[var(--gray-700)] hover:bg-[var(--gray-700)] transition"
       >
         <img
           src={imgSrc}

@@ -5,7 +5,7 @@ import { ROUTES } from "./routes/routes.ts";
 import { UserProvider } from "./contexts/context-user.tsx";
 import { lazy, Suspense } from "react";
 import { Notifications } from "./components/notifications.tsx";
-import { GuestPage, UserPage } from "./components/access-guards.tsx";
+import { AuthInitializer, GuestPage, UserPage } from "./components/access-guards.tsx";
 
 const LazyApp = lazy(() => import("./app.tsx"));
 const LazySignIn = lazy(() => import("./pages/signin-page.tsx"));
@@ -19,20 +19,25 @@ createRoot(document.getElementById("root")!).render(
   <UserProvider>
     <Router>
       <Notifications />
-      <Suspense fallback={<div className="min-h-screen text-center text-black">Loading...</div>}>
+      <Suspense fallback={<div className="min-h-screen text-center text-black">Loading page...</div>}>
         <Routes>
+          {/* Public routes (no auth required) */}
           <Route index path={ROUTES.HOME} element={<LazyApp />} />
           <Route path={ROUTES.FORGOT_PASSWORD} element={<LazyResetPassword />} />
           <Route path={ROUTES.ROUTE_NOT_FOUND} element={<LazyRouteNotFound />} />
 
-          <Route element={<GuestPage />}>
-            <Route path={ROUTES.AUTH.SIGN_IN} element={<LazySignIn />} />
-            <Route path={ROUTES.AUTH.SIGN_UP} element={<LazySignUp />} />
-          </Route>
+          <Route element={<AuthInitializer />}>
+            {/* Guest-only routes */}
+            <Route element={<GuestPage />}>
+              <Route path={ROUTES.AUTH.SIGN_IN} element={<LazySignIn />} />
+              <Route path={ROUTES.AUTH.SIGN_UP} element={<LazySignUp />} />
+            </Route>
 
-          <Route element={<UserPage />}>
-            <Route path={ROUTES.MUSIC} element={<LazyMusic />} />
-            <Route path={ROUTES.AUTH.ACCOUNT} element={<LazyAccount />} />
+            {/* User-only routes */}
+            <Route element={<UserPage />}>
+              <Route path={ROUTES.MUSIC} element={<LazyMusic />} />
+              <Route path={ROUTES.AUTH.ACCOUNT} element={<LazyAccount />} />
+            </Route>
           </Route>
         </Routes>
       </Suspense>

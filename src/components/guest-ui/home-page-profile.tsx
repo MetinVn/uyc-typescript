@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import placeholder from "../../../public/MrBeanAndMona.jpg";
+import placeholder from "../../images/kitty.jpg";
 import { ROUTES } from "../../routes/routes";
 import { CustomLink } from "../reused-ui/reused-router-link";
 import { useHandleOutsideClicks } from "../../hooks/hook-outside-clicks";
@@ -23,7 +23,7 @@ export const GuestProfile = () => {
       {/* Desktop view profile card */}
       <div
         onClick={handleToggle}
-        className="hidden sm:flex items-center gap-1 p-1 rounded-full cursor-pointer bg-[var(--gray-800)] hover:opacity-90 active:bg-[var(--gray-700)] transition"
+        className="hidden sm:flex items-center gap-1 p-1 rounded-full cursor-pointer bg-[var(--gray-800)] hover:opacity-90 active:bg-[var(--gray-700)] hover:bg-[var(--gray-700)] transition"
       >
         <img
           src={placeholder}
@@ -37,7 +37,7 @@ export const GuestProfile = () => {
       {/* Mobile view profile card */}
       <button
         onClick={handleToggle}
-        className="sm:hidden flex items-end p-1 rounded-full cursor-pointer bg-[var(--gray-700)] active:bg-[var(--gray-800)] transition"
+        className="sm:hidden flex items-end p-1 rounded-full bg-[var(--gray-700)] active:bg-[var(--gray-800)] transition"
       >
         <img src={placeholder} alt="profile" draggable={false} className="w-14 h-14 rounded-full object-cover" />
       </button>
