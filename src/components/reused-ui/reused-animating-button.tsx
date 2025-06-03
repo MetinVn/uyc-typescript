@@ -4,7 +4,7 @@ import { MdDone } from "react-icons/md";
 import { LuLoader } from "react-icons/lu";
 import { useButtonState } from "../../stores/shared/button-state";
 
-export type AnimatingButtonProps = {
+type AnimatingButtonProps = {
   id: string;
   defaultText: string;
   fullWidth?: boolean;
