@@ -113,7 +113,7 @@ If I had more time, I would:
 
 - Build a custom backend server for link conversion, so users wouldn’t be limited by third-party API quotas or reliability.
 - Add a music recommendation system to suggest songs based on users’ converted songs and ratings.
-- Improve the planning and documentation even further, possibly adding more automated tests and CI/CD.
+- Write tests with Vitest for `Utils` functions, `Contexts`, critical logic, and UI components.
 - Refine the UI/UX for even better accessibility and responsiveness.
 
 ---
