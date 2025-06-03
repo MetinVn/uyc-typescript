@@ -1,89 +1,25 @@
 @import "tailwindcss";
 
 :root {
-  --homepage-bg: #3e3e3e;
+  /* Grays */
+  --gray-900: #18181b;
+  --gray-800: #23272f;
+  --gray-700: #334155;
+  --gray-600: #475569;
+  --gray-500: #64748b;
+  --gray-400: #94a3b8;
+  --gray-300: #cbd5e1;
+  --gray-200: #e2e8f0;
+  --gray-100: #f1f5f9;
+  --gray-50:  #f8fafc;
 
-  --regular-button-bg: #363636;  
-  --regular-button-text: #c9c9c9;
-  --regular-button-text-hover: #ffffff;
-
-  --danger-button-text: #a86a6a;
-  --danger-button-text-hover: #d9a8a8;
-  --danger-button-bg-hover: #5f2c2c;
-
-  --custom-select-bg:#717171;
-  --custom-select-bg-hover:#7c7c7c;
-  --custom-select-text:#fff;
-
-  --router-link-bg: #2121211c;  
-  --router-link-bg-hover: #363636;  
-  --router-link-text: #c9c9c9;
-  --router-link-text-hover: #ffffff;
-
-  --homepage-header-bg: #575757;
-
-  --homepage-logo-text: #ffffff;
-
-  --homepage-body-input-bg:#575757;
-  --homepage-body-input-focus:#8a8a8a;
-  --homepage-body-input-text:#ffffff;
-  --homepage-body-input-placeholder:#ffffff;
-
-  --homepage-profile-bg: #6f6f6f;
-  --homepage-profile-guest-bg:#282828c4;
-  --homepage-profile-bg-active: #ffffff09;
-  --homepage-profile-user-name: #dedede;
-  --homepage-profile-user-email: #363636;
-  --homepage-profile-dropdown-bg: #4c4c4c;
-  --homepage-profile-dropdown-text: #c9c9c9;
-  --homepage-profile-dropdown-links: #c9c9c9;
-  --homepage-profile-dropdown-links-hover: #ffffff;
-
-  --authpage-bg:#262727;
-  --authpage-form-bg:#2f2f2f;
-
-  --account-page-bg:#5a5a5a;
-
-  /* Background */
-  --bg-primary: #262727;
-  --bg-secondary: #2f2f2f;
-  --bg-accent: rgba(255, 255, 255, 0 05);
-  --bg-active: rgba(255, 255, 255, 0.1);
-  --bg-blur: rgba(255, 255, 255, 0.1);
-
-  /* Borders */
-  --border-primary: rgba(255, 255, 255, 0.2);
-  --border-secondary: rgba(255, 255, 255, 0.3);
-  --border-muted: #838282;
-
-  /* Text */
-  --text-primary: #ffffff;
-  --text-muted: rgba(255, 255, 255, 0.7);
-  --text-light: #d1d1d1;
-  --text-dark: #999999;
-
-  /* Shadow */
-  --shadow-inner: inset 0 1px 2px rgba(0, 0, 0, 0.6);
-
-  /* Specifics */
-  --bg-input: #575757;
-  --bg-card: #3e3e3e;
-  --border-input: #6b6b6b;
-  --hover-btn: #6c6c6c;
-  --ring-focus: #8a8a8a;
-
-  /* Config */
-  --btn-active-bg: rgba(255, 255, 255, 0.1);
-  --btn-active-border: rgba(255, 255, 255, 0.3);
-  --btn-hover-bg: #ffffff0d;
-  --btn-border: rgba(255, 255, 255, 0.2);
-  --btn-text: rgba(255, 255, 255, 0.7);
-
-  /* Config Form */
-  --text-secondary: #cccccc; /* for text-gray-300 */
-  --btn-cancel-bg: #6a6a6a;
-  --btn-cancel-hover: #7c7c7c;
-
-  /* Header */
-  --bg-header: #838282;
+  /* Accent Colors */
+  --blue-700: #2563eb;
+  --blue-600: #3b82f6;
+  --red-700: #991b1b;
+  --red-500: #f87171;
+  --red-200: #fecaca;
+  --yellow-400: #facc15;
+  --accent-500: #38bdf8;
+  
 }

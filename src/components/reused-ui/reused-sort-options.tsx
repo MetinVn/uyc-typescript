@@ -38,7 +38,7 @@ export const SortSelect = ({ selected, onChange }: ISortSelectProps) => {
         title="Sort music"
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
-        className="w-full cursor-pointer text-[var(--custom-select-text)] bg-[var(--custom-select-bg)] hover:bg-[var(--custom-select-bg-hover)] min-h-10 p-2 rounded-md flex justify-between items-center transition"
+        className="w-full cursor-pointer text-[var(--gray-100)] bg-[var(--gray-700)] hover:bg-[var(--gray-600)] min-h-10 p-2 rounded-md flex justify-between items-center transition"
       >
         <span>{displayLabel}</span>
         <FiChevronDown className={`transition-transform ${isOpen ? "-rotate-90" : ""}`} />
@@ -47,7 +47,7 @@ export const SortSelect = ({ selected, onChange }: ISortSelectProps) => {
       <div
         className={`absolute ${
           isOpen ? "translate-y-4 visible opacity-100" : "translate-y-0 invisible opacity-0"
-        } w-full transition-all rounded-md z-50 bg-[var(--custom-select-bg)] overflow-hidden`}
+        } w-full transition-all rounded-md z-50 bg-[var(--gray-700)] overflow-hidden`}
       >
         {sortOptions.map((option) => (
           <button
@@ -55,12 +55,12 @@ export const SortSelect = ({ selected, onChange }: ISortSelectProps) => {
             type="button"
             key={option.value}
             onClick={() => handleSelect(option.value as SortOptions)}
-            className={`px-4 py-2 w-full text-[var(--custom-select-text)] text-left transition
-              ${
-                selected === option.value
-                  ? "bg-[var(--custom-select-bg-hover)] font-semibold"
-                  : "cursor-pointer hover:bg-[var(--custom-select-bg-hover)]"
-              }`}
+            className={`px-4 py-2 w-full text-[var(--gray-100)] text-left transition
+            ${
+              selected === option.value
+                ? "bg-[var(--gray-600)] font-semibold"
+                : "cursor-pointer hover:bg-[var(--gray-600)]"
+            }`}
           >
             {option.label}
           </button>

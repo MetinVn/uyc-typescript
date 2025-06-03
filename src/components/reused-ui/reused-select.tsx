@@ -25,7 +25,7 @@ export const CustomSelect = () => {
         title="Choose format"
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
-        className="w-full cursor-pointer text-[var(--custom-select-text)] bg-[var(--custom-select-bg)] hover:bg-[var(--custom-select-bg-hover)] min-h-10 p-2 rounded-md flex justify-between items-center transition"
+        className="w-full cursor-pointer text-[var(--gray-100)] bg-[var(--gray-700)] hover:bg-[var(--gray-600)] min-h-10 p-2 rounded-md flex justify-between items-center transition"
       >
         <div className="flex items-center gap-2">
           {iconMap[currentFormat]}
@@ -37,7 +37,7 @@ export const CustomSelect = () => {
       <div
         className={`absolute ${
           isOpen ? "translate-y-4 visible opacity-100" : "translate-y-0 invisible opacity-0"
-        } w-full transition-all rounded-md z-50 bg-[var(--custom-select-bg)] overflow-hidden`}
+        } w-full transition-all rounded-md z-50 bg-[var(--gray-700)] overflow-hidden`}
       >
         {formats.map((option) => {
           const isDisabled = option === "mp4" && !email.state();
@@ -53,8 +53,8 @@ export const CustomSelect = () => {
                 }
               }}
               disabled={isDisabled}
-              className={`px-4 py-2 w-full text-[var(--custom-select-text)] flex items-center gap-2 transition
-        ${isDisabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer hover:bg-[var(--custom-select-bg-hover)]"}`}
+              className={`px-4 py-2 w-full text-[var(--gray-100)] flex items-center gap-2 transition
+        ${isDisabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer hover:bg-[var(--gray-600)]"}`}
             >
               {iconMap[option]}
               {option.toUpperCase()}

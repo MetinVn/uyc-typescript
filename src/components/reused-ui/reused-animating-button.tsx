@@ -26,18 +26,18 @@ export default function AnimatingButton({ defaultText, fullWidth = false, setBut
       className={`min-w-[70px] min-h-10 ${
         fullWidth ? "w-full" : "w-fit"
       } cursor-pointer rounded-md text-white flex justify-center items-center overflow-hidden`}
-      initial={{ backgroundColor: "#6a6a6a" }}
+      initial={{ backgroundColor: "var(--gray-700)" }}
       animate={{
         backgroundColor:
           buttonState === "pending"
-            ? "#6b6b6b"
+            ? "var(--gray-600)"
             : buttonState === "success"
             ? "#38b000"
             : buttonState === "error"
-            ? "#d91e36"
-            : "#6a6a6a",
+            ? "var(--red-700)"
+            : "var(--gray-700)",
       }}
-      whileHover={buttonState === "default" ? { backgroundColor: "#7c7c7c" } : {}}
+      whileHover={buttonState === "default" ? { backgroundColor: "var(--gray-600)" } : {}}
       transition={{ duration: colorAnimDuration }}
     >
       <AnimatePresence mode="wait">

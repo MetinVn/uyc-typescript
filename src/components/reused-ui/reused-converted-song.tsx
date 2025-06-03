@@ -57,7 +57,7 @@ export const ConvertedSongUI = () => {
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.3, ease: "easeIn" }}
-        className="w-full max-w-[570px] p-4 mx-auto mt-4 rounded-md text-sm text-white flex flex-col sm:flex-row gap-4 border border-white/10 hover:bg-white/5 transition-colors"
+        className="w-full max-w-[570px] p-4 mx-auto mt-4 rounded-md text-sm text-[var(--gray-100)] flex flex-col sm:flex-row gap-4 border border-[var(--gray-700)] hover:bg-[var(--gray-800)] transition-colors"
       >
         {/* Content */}
         <div className="flex-1 flex flex-col gap-3">
@@ -65,7 +65,7 @@ export const ConvertedSongUI = () => {
             href={displayItem.link}
             target="_self"
             rel="noopener noreferrer"
-            className="font-medium text-base underline hover:no-underline break-words"
+            className="font-medium text-base underline hover:no-underline break-words text-[var(--accent-500)]"
             title="Download this song"
           >
             {displayItem.title}
@@ -81,7 +81,7 @@ export const ConvertedSongUI = () => {
             <li>
               <button
                 onClick={handleCopyLink}
-                className="hover:text-blue-400 cursor-pointer transition"
+                className="hover:text-[var(--accent-500)] cursor-pointer transition"
                 title="Copy YouTube link"
               >
                 <strong>Copy Link</strong>
@@ -96,10 +96,14 @@ export const ConvertedSongUI = () => {
                   disabled={!isEmailVerified}
                   title={isEmailVerified ? `Rate ${n} star${n > 1 ? "s" : ""}` : "Login to rate"}
                   className={`p-1 rounded ${
-                    isEmailVerified ? "hover:text-yellow-400 cursor-pointer" : "opacity-50 cursor-not-allowed"
+                    isEmailVerified ? "hover:text-[var(--yellow-400)] cursor-pointer" : "opacity-50 cursor-not-allowed"
                   }`}
                 >
-                  {n <= (displayItem.rating ?? 0) ? <FaStar /> : <FaRegStar />}
+                  {n <= (displayItem.rating ?? 0) ? (
+                    <FaStar className="text-[var(--yellow-400)]" />
+                  ) : (
+                    <FaRegStar className="text-[var(--gray-400)]" />
+                  )}
                 </button>
               ))}
             </li>
@@ -118,7 +122,7 @@ export const ConvertedSongUI = () => {
                 ? "Unfavorite this song"
                 : "Favorite this song"
             }
-            className={`text-yellow-400 hover:text-yellow-500 transition p-2 rounded-full ${
+            className={`text-[var(--yellow-400)] hover:text-[var(--yellow-400)] transition p-2 rounded-full ${
               isEmailVerified ? "cursor-pointer" : "opacity-50 cursor-not-allowed"
             }`}
           >

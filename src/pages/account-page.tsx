@@ -172,13 +172,13 @@ export default function Account() {
   };
 
   return (
-    <div className="min-h-screen h-auto bg-[var(--account-page-bg)] p-6 text-white">
+    <div className="min-h-screen h-auto bg-[var(--account-page-bg)] p-6 text-[var(--homepage-body-input-text)]">
       <div className="w-full max-w-6xl mx-auto">
         <div className="mb-5">
           <CustomLink title="Back" replace path={ROUTES.HOME} />
         </div>
         {/* Account Info */}
-        <section className="bg-[#4c4c4c] p-4 sm:p-6 rounded-2xl shadow-md flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <section className="bg-[var(--homepage-profile-bg)] p-4 sm:p-6 rounded-2xl shadow-md flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="flex items-center space-x-4">
             <ImageLoader
               loading="eager"
@@ -193,9 +193,9 @@ export default function Account() {
                   <FiEdit2 size={13} />
                 </button>
               </div>
-              <div className="text-sm text-gray-400">Email: {user.email}</div>
+              <div className="text-sm text-[var(--homepage-profile-user-email)]">Email: {user.email}</div>
               <div className="text-sm flex items-center gap-3">
-                <p className=" text-gray-400">
+                <p className="text-[var(--homepage-profile-user-email)]">
                   Password: <span className="tracking-widest">••••••••</span>
                 </p>
                 <button onClick={() => setShowEditPass(true)} type="button" className="cursor-pointer">
@@ -203,7 +203,7 @@ export default function Account() {
                 </button>
               </div>
               {user.metadata.creationTime && (
-                <p className="text-sm text-gray-400">
+                <p className="text-sm text-[var(--homepage-profile-user-email)]">
                   Member since :{" "}
                   {new Date(user.metadata.creationTime).toLocaleDateString("en-US", {
                     day: "numeric",
@@ -218,11 +218,11 @@ export default function Account() {
 
         {/* User Data Info */}
         <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2">
-          <section className="bg-[#4c4c4c] p-6 rounded-2xl shadow-md">
+          <section className="bg-[var(--homepage-profile-bg)] p-6 rounded-2xl shadow-md">
             <h2 className="text-xl font-semibold mb-2">Your Music Library</h2>
-            <p className="text-gray-400">
+            <p className="text-[var(--homepage-profile-user-email)]">
               You have{" "}
-              <span className="text-white font-semibold">
+              <span className="text-[var(--homepage-profile-user-name)] font-semibold">
                 <Link title={ROUTES.MUSIC} to={ROUTES.MUSIC}>
                   {music.length}
                 </Link>
@@ -233,19 +233,19 @@ export default function Account() {
             </p>
           </section>
 
-          <section className="bg-[#4c4c4c] p-6 rounded-2xl shadow-md">
+          <section className="bg-[var(--homepage-profile-bg)] p-6 rounded-2xl shadow-md">
             <h2 className="text-xl font-semibold mb-2">Your Video Library</h2>
-            <p className="text-gray-400">
-              You have <span className="text-white font-semibold">0</span> videos stored.
+            <p className="text-[var(--homepage-profile-user-email)]">
+              You have <span className="text-[var(--homepage-profile-user-name)] font-semibold">0</span> videos stored.
             </p>
           </section>
 
-          <section className="bg-[#f164641e] p-4 sm:p-6 rounded-2xl shadow-md border border-red-500 space-y-4 sm:col-span-2">
-            <h2 className="text-xl font-semibold text-red-500">Danger Zone</h2>
-            <p className="text-sm text-red-200">
+          <section className="bg-red-900/10 p-4 sm:p-6 rounded-2xl shadow-md border border-[var(--danger-button-text)] space-y-4 sm:col-span-2">
+            <h2 className="text-xl font-semibold text-[var(--danger-button-text)]">Danger Zone</h2>
+            <p className="text-sm text-[var(--danger-button-text-hover)]">
               Permanently delete all your data. This <strong>cannot</strong> be undone.
             </p>
-            <ul className="list-disc list-inside text-sm text-red-200 space-y-1 pl-4">
+            <ul className="list-disc list-inside text-sm text-[var(--danger-button-text-hover)] space-y-1 pl-4">
               <li>All your converted songs and videos</li>
               <li>Your favorites and ratings</li>
               <li>All personalized playlists or saved content</li>
@@ -254,7 +254,7 @@ export default function Account() {
             <button
               type="button"
               onClick={() => setShowDeleteModal(true)}
-              className="bg-red-600 hover:bg-red-700 text-white cursor-pointer px-4 py-2 rounded-md transition"
+              className="bg-[var(--danger-button-text)] hover:bg-[var(--danger-button-bg-hover)] text-white cursor-pointer px-4 py-2 rounded-md transition"
             >
               Delete My Account
             </button>

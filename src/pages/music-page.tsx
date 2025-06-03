@@ -11,7 +11,7 @@ export default function MusicPage() {
   let filteredMusic = music.filter((song) => song.title.toLowerCase().includes(searchTerm.toLowerCase()));
 
   return (
-    <div className="min-h-screen h-auto bg-[var(--account-page-bg)] text-white p-2 pt-5 sm:px-6 sm:py-10 overflow-hidden">
+    <div className="min-h-screen h-auto bg-[var(--gray-900)] text-[var(--gray-100)] p-2 pt-5 sm:px-6 sm:py-10 overflow-hidden">
       <div className="mb-3">
         <CustomLink path={ROUTES.HOME} title="Back" />
       </div>
@@ -22,7 +22,7 @@ export default function MusicPage() {
           id="searchMusic"
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Search music"
-          className="text-xs text-shadow-2xs text-white placeholder:text-amber-100 sm:text-base bg-[#494949] focus:drop-shadow-md w-full outline-none pl-5 py-3 px-2 sm:px-4 rounded-full transition"
+          className="text-xs text-[var(--gray-100)] placeholder:text-[var(--yellow-400)] sm:text-base bg-[var(--gray-700)] focus:drop-shadow-md w-full outline-none pl-5 py-3 px-2 sm:px-4 rounded-full transition"
         />
       </div>
 

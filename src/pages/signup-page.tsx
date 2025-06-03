@@ -95,12 +95,12 @@ export default function SignUpComponent() {
   };
 
   return (
-    <div className="min-h-screen h-auto bg-[var(--authpage-bg)] flex justify-center items-center py-4 px-4 ">
-      <div className="p-8 w-full max-w-md bg-[var(--authpage-form-bg)] rounded-lg shadow-md">
+    <div className="min-h-screen h-auto bg-[var(--gray-900)] flex justify-center items-center py-4 px-4">
+      <div className="p-8 w-full max-w-md bg-[var(--gray-800)] rounded-lg shadow-md">
         <CustomLink path={ROUTES.HOME} title="Back" />
 
         <div className="space-y-5">
-          <h2 className="text-white text-2xl font-semibold text-center">Sign Up</h2>
+          <h2 className="text-[var(--gray-100)] text-2xl font-semibold text-center">Sign Up</h2>
           <FormFields
             showEmailField
             onSubmit={handleSubmit}
@@ -112,13 +112,13 @@ export default function SignUpComponent() {
             showForgotPasswordLink={false}
           />
           <AnimatingButton id={animatingButtonTackerID} fullWidth defaultText="Sign up" setButtonState={handleSubmit} />
-          <div className="flex items-center gap-4 text-[#aaa] text-sm">
-            <div className="h-px bg-[#444] flex-1" />
+          <div className="flex items-center gap-4 text-[var(--gray-400)] text-sm">
+            <div className="h-px bg-[var(--gray-600)] flex-1" />
             <span className="uppercase text-xs tracking-widest">or</span>
-            <div className="h-px bg-[#444] flex-1" />
+            <div className="h-px bg-[var(--gray-600)] flex-1" />
           </div>
           <RegisterWithGoogle id={animatingButtonTackerID} onClick={handleGoogleSignUp} />
-          <div className="mt-4 text-sm text-center text-[#ccc]">
+          <div className="mt-4 text-sm text-center text-[var(--gray-300)]">
             <p>
               Already have an account? <CustomLink path={ROUTES.AUTH.SIGN_IN} title="Sign in" />
             </p>

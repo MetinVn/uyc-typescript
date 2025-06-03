@@ -51,19 +51,19 @@ export const MusicCardWrapper = ({ musicList, sectionTitle }: IMusicCardWrapper)
 
   return (
     <>
-      <div className="flex justify-between items-center text-xs sm:text-lg my-4 font-semibold">
+      <div className="flex justify-between items-center text-xs sm:text-lg my-4 font-semibold text-[var(--gray-100)]">
         <h1>{sectionTitle}</h1>
       </div>
 
       <div className="mb-2 flex justify-start items-center text-xs sm:text-lg font-semibold gap-4">
-        <h1 className="">Sort by: </h1>
+        <h1 className="text-[var(--gray-400)]">Sort by: </h1>
         <SortSelect selected={sortOption} onChange={setSortOption} />
       </div>
 
       {sortedMusicList.length === 0 ? (
-        <p className="text-gray-400">No music found.</p>
+        <p className="text-[var(--gray-400)]">No music found.</p>
       ) : (
-        <motion.ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 bg-black/20 shadow-inner rounded-md border-2 border-[#383838] overflow-y-scroll overflow-x-hidden w-full max-h-[370px] p-2 sm:p-3">
+        <motion.ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 bg-[rgba(24,24,27,0.7)] shadow-inner rounded-md border-2 border-[var(--gray-700)] overflow-y-scroll overflow-x-hidden w-full max-h-[370px] p-2 sm:p-3">
           <AnimatePresence mode="sync">
             {sortedMusicList.map((music) => (
               <MusicCard

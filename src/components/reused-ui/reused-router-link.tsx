@@ -5,7 +5,7 @@ export const CustomLink = ({ title, path, replace }: { title: string; path: stri
     replace={replace || false}
     title={"Go to: " + path}
     to={path}
-    className="p-2 rounded-md bg-[var(--router-link-bg)] hover:bg-[var(--router-link-bg-hover)] w-full text-sm text-[var(--router-link-text)] hover:text-[var(--router-link-text-hover)] transition"
+    className="p-2 rounded-md bg-[var(--gray-700)] hover:bg-[var(--gray-600)] w-full text-sm text-[var(--gray-100)] hover:text-[var(--accent-500)] transition"
   >
     {title}
   </Link>

@@ -83,13 +83,17 @@ export default function ForgotPasswordComponent() {
   };
 
   if (userLoading) {
-    return <div className="h-screen bg-[var(--authpage-bg)] flex justify-center items-center text-white">Loading…</div>;
+    return (
+      <div className="h-screen bg-[var(--gray-900)] flex justify-center items-center text-[var(--gray-100)]">
+        Loading…
+      </div>
+    );
   }
 
   if (autoSent) {
     return (
-      <div className="h-screen bg-[var(--authpage-bg)] flex justify-center items-center px-4">
-        <div className="p-8 w-full max-w-md bg-[var(--authpage-form-bg)] rounded-lg shadow-md text-white">
+      <div className="h-screen bg-[var(--gray-900)] flex justify-center items-center px-4">
+        <div className="p-8 w-full max-w-md bg-[var(--gray-800)] rounded-lg shadow-md text-[var(--gray-100)]">
           <h2 className="text-xl">
             A reset link has been sent to <span className="font-medium">{user?.email || "your email"}</span>
           </h2>
@@ -102,10 +106,10 @@ export default function ForgotPasswordComponent() {
   }
 
   return (
-    <div className="h-screen bg-[var(--authpage-bg)] flex justify-center items-center px-4">
-      <div className="p-8 w-full max-w-md bg-[var(--authpage-form-bg)] rounded-lg shadow-md">
+    <div className="h-screen bg-[var(--gray-900)] flex justify-center items-center px-4">
+      <div className="p-8 w-full max-w-md bg-[var(--gray-800)] rounded-lg shadow-md">
         <CustomLink path={ROUTES.HOME} title="Back" />
-        <h1 className="text-white text-2xl font-semibold text-center pb-7">Reset Password</h1>
+        <h1 className="text-[var(--gray-100)] text-2xl font-semibold text-center pb-7">Reset Password</h1>
 
         {showForm && (
           <>
