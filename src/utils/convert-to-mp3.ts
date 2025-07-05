@@ -8,17 +8,23 @@ import { uycmusic } from "../stores/user/music-list";
 import { email } from "../stores/user/user-state";
 import { converted } from "../stores/shared/converted-song";
 
-export async function ConvertToMP3(youtubeLinkRef: React.RefObject<string>, id: string) {
-  const { default: before, error: failed, pending, success } = animateTo(id);
+type ConvertToMP3Props = {
+  youtubeLinkRef: React.RefObject<string>;
+  id: string;
+  resetInput: () => void;
+};
 
-  if (youtubeLinkRef.current.trim() === "") {
+export async function ConvertToMP3(props: ConvertToMP3Props) {
+  const { default: before, error: failed, pending, success } = animateTo(props.id);
+
+  if (props.youtubeLinkRef.current.trim() === "") {
     notify.error("Link can not be empty", 1000);
     failed();
     before();
     return false;
   }
 
-  const youtubeId = youtube_parser(youtubeLinkRef.current);
+  const youtubeId = youtube_parser(props.youtubeLinkRef.current);
   if (!youtubeId) {
     notify.error("Please enter valid YouTube link", 1500);
     failed();
@@ -27,6 +33,7 @@ export async function ConvertToMP3(youtubeLinkRef: React.RefObject<string>, id: 
   }
 
   try {
+    console.log("Requesting conversion for YouTube ID:", youtubeId);
     pending();
     const options = {
       method: "GET",
@@ -53,7 +60,7 @@ export async function ConvertToMP3(youtubeLinkRef: React.RefObject<string>, id: 
       duration: response.data.duration,
       fileSize: response.data.filesize,
       link: response.data.link,
-      youtubeLink: youtubeLinkRef.current,
+      youtubeLink: props.youtubeLinkRef.current,
       title: response.data.title,
       thumbnail: getYouTubeThumbnail(youtubeId),
       rating: 0,
@@ -65,6 +72,7 @@ export async function ConvertToMP3(youtubeLinkRef: React.RefObject<string>, id: 
       uycmusic.save(music);
     }
     converted.add(music);
+    props.resetInput();
     success();
     before();
     notify.success("Link has been converted successfully", 2500);
