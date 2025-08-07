@@ -39,7 +39,7 @@ export const useConvertedSong = create<IConvertedSong>()(
     }),
     {
       name: "converted-song",
-      onRehydrateStorage: () => (state) => {
+      onRehydrateStorage: (state) => {
         const song = state?.song;
         if (song) {
           if (song.expiresAt <= Date.now()) {
