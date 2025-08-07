@@ -1,6 +1,7 @@
+import { memo } from "react";
 import { Link } from "react-router-dom";
 
-export const CustomLink = ({ title, path, replace }: { title: string; path: string; replace?: boolean }) => (
+export const CustomLink = memo(({ title, path, replace }: { title: string; path: string; replace?: boolean }) => (
   <Link
     replace={replace || false}
     title={"Go to: " + path}
@@ -9,4 +10,4 @@ export const CustomLink = ({ title, path, replace }: { title: string; path: stri
   >
     {title}
   </Link>
-);
+));
