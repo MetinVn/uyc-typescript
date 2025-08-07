@@ -1,19 +1,20 @@
-import { formatDuration } from "../../utils/format-music-duration";
-import { formatSize } from "../../utils/format-music-size";
-import { FaRegStar, FaStar } from "react-icons/fa";
+import { memo } from "react";
+import { Star, StarIcon } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useMusicList, uycmusic } from "../../stores/user/music-list";
+
+import { Music } from "../../types/types-converted-music";
+import { uycmusic } from "../../stores/user/music-list";
 import { notify } from "../../stores/shared/notification";
 import { converted } from "../../stores/shared/converted-song";
+import { downloadFile } from "../../utils/download-converted-songs";
+import { formatDuration } from "../../utils/format-music-duration";
+import { formatSize } from "../../utils/format-music-size";
 import { email } from "../../stores/user/user-state";
 
-export const ConvertedSongUI = () => {
-  const convertedSong = converted.use();
-  const isEmailVerified = email.use();
-  const music = useMusicList((state) => state.music);
-
+export const ConvertedSongUI = memo(({ convertedSong, music }: { convertedSong: Music | null; music: Music[] }) => {
   if (!convertedSong) return null;
 
+  const isEmailVerified = email.use();
   const displayItem = music.find((m) => m.id === convertedSong.id) ?? convertedSong;
 
   const handleRate = (star: number) => {
@@ -61,15 +62,13 @@ export const ConvertedSongUI = () => {
       >
         {/* Content */}
         <div className="flex-1 flex flex-col gap-3">
-          <a
-            href={displayItem.link}
-            target="_self"
-            rel="noopener noreferrer"
-            className="font-medium text-base underline hover:no-underline break-words text-[var(--accent-500)]"
+          <button
+            onClick={() => downloadFile(displayItem.link, displayItem.title)}
+            className="font-medium text-base text-left underline hover:no-underline break-words text-[var(--accent-500)]"
             title="Download this song"
           >
             {displayItem.title}
-          </a>
+          </button>
 
           <ul className="flex items-center gap-3 text-xs flex-wrap w-fit">
             <li>
@@ -100,9 +99,9 @@ export const ConvertedSongUI = () => {
                   }`}
                 >
                   {n <= (displayItem.rating ?? 0) ? (
-                    <FaStar className="text-[var(--yellow-400)]" />
+                    <StarIcon className="text-[var(--yellow-400)]" />
                   ) : (
-                    <FaRegStar className="text-[var(--gray-400)]" />
+                    <Star className="text-[var(--gray-400)]" />
                   )}
                 </button>
               ))}
@@ -126,10 +125,10 @@ export const ConvertedSongUI = () => {
               isEmailVerified ? "cursor-pointer" : "opacity-50 cursor-not-allowed"
             }`}
           >
-            {displayItem.starred ? <FaStar size={20} /> : <FaRegStar size={20} />}
+            {displayItem.starred ? <StarIcon strokeWidth={1} size={20} /> : <Star strokeWidth={1} size={20} />}
           </button>
         </div>
       </motion.div>
     </AnimatePresence>
   );
-};
+});
