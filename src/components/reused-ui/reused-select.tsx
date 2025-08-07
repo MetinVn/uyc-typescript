@@ -1,16 +1,16 @@
-import { useState, useRef } from "react";
-import { FiChevronDown } from "react-icons/fi";
-import { FaMusic, FaVideo } from "react-icons/fa";
-import { useHandleOutsideClicks } from "../../hooks/hook-outside-clicks";
+import { useState, useRef, memo } from "react";
+import { ChevronDown } from "lucide-react";
+import { Music2, Video } from "lucide-react";
 import { AvailableFormats, useMusicFormat } from "../../stores/shared/format-change";
+import { useHandleOutsideClicks } from "../../hooks/hook-outside-clicks";
 import { email } from "../../stores/user/user-state";
 
 const iconMap: Record<AvailableFormats, React.JSX.Element> = {
-  mp3: <FaMusic size={15} />,
-  mp4: <FaVideo size={15} />,
+  mp3: <Music2 size={15} />,
+  mp4: <Video size={15} />,
 };
 
-export const CustomSelect = () => {
+export const CustomSelect = memo(() => {
   const formats: AvailableFormats[] = ["mp3", "mp4"];
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -31,7 +31,7 @@ export const CustomSelect = () => {
           {iconMap[currentFormat]}
           {currentFormat.toUpperCase()}
         </div>
-        <FiChevronDown className={`transition-transform ${isOpen ? "-rotate-90" : ""}`} />
+        <ChevronDown size={15} className={`transition-transform ${isOpen ? "-rotate-90" : ""}`} />
       </button>
 
       <div
@@ -64,4 +64,4 @@ export const CustomSelect = () => {
       </div>
     </div>
   );
-};
+});
