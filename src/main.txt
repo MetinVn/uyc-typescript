@@ -1,0 +1,82 @@
+// import { createRoot } from "react-dom/client";
+// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+// import "./index.css";
+// import { ROUTES } from "./routes/routes.ts";
+// import { lazy, Suspense } from "react";
+
+// import RouteNotFoundPage from "./pages/NotFound/route-not-found.tsx";
+// import HomePage from "./pages/Home/home-chunk.tsx";
+// import { UserProvider } from "./contexts/context-user.tsx";
+// import { Notifications } from "./components/notifications.tsx";
+// import { AuthInitializer, GuestPages, UserPages } from "./components/access-guards.tsx";
+
+// const PageLoadingFallback = ({ componentName }: { componentName: string }) => (
+//   <div className="min-h-screen text-center text-white bg-[var(--gray-900)]">Loading {`${componentName}`}...</div>
+// );
+
+// const AccountPage = lazy(() => import("./pages/Account/account-chunk.tsx"));
+// const MusicPage = lazy(() => import("./pages/Music/music-chunk.tsx"));
+// const ResetPasswordPage = lazy(() => import("./pages/ResetPassword/reset-password-chunk.tsx"));
+// const SignInPage = lazy(() => import("./pages/SignIn/signin-page-chunk.tsx"));
+// const SignUpPage = lazy(() => import("./pages/SignUp/signup-page-chunk.tsx"));
+
+// createRoot(document.getElementById("root")!).render(
+//   <Router>
+//     <Notifications />
+//     <UserProvider>
+//       <Routes>
+//         <Route index path={ROUTES.HOME} element={<HomePage />} />
+//         <Route path={ROUTES.ROUTE_NOT_FOUND} element={<RouteNotFoundPage />} />
+
+//         <Route
+//           path={ROUTES.FORGOT_PASSWORD}
+//           element={
+//             <Suspense fallback={<PageLoadingFallback componentName="Reset password page" />}>
+//               <ResetPasswordPage />
+//             </Suspense>
+//           }
+//         />
+
+//         <Route element={<AuthInitializer />}>
+//           <Route element={<GuestPages />}>
+//             <Route
+//               path={ROUTES.AUTH.SIGN_IN}
+//               element={
+//                 <Suspense fallback={<PageLoadingFallback componentName="Sign in page" />}>
+//                   <SignInPage />
+//                 </Suspense>
+//               }
+//             />
+//             <Route
+//               path={ROUTES.AUTH.SIGN_UP}
+//               element={
+//                 <Suspense fallback={<PageLoadingFallback componentName="Sign up page" />}>
+//                   <SignUpPage />
+//                 </Suspense>
+//               }
+//             />
+//           </Route>
+
+//           <Route element={<UserPages />}>
+//             <Route
+//               path={ROUTES.MUSIC}
+//               element={
+//                 <Suspense fallback={<PageLoadingFallback componentName="Music page" />}>
+//                   <MusicPage />
+//                 </Suspense>
+//               }
+//             />
+//             <Route
+//               path={ROUTES.AUTH.ACCOUNT}
+//               element={
+//                 <Suspense fallback={<PageLoadingFallback componentName="Account page" />}>
+//                   <AccountPage />
+//                 </Suspense>
+//               }
+//             />
+//           </Route>
+//         </Route>
+//       </Routes>
+//     </UserProvider>
+//   </Router>
+// );
