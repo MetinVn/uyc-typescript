@@ -1,23 +1,29 @@
-import { useState } from "react";
-import { ZodSchema } from "zod";
+import { useState, useCallback, useMemo, useEffect } from "react";
+import { ZodType } from "zod";
 
-export function useFormController<T extends Record<string, any>>(schema: ZodSchema<T>, initialValues: T) {
+export const useFormController = <T extends Record<string, any>>(schema: ZodType<T>, initialValues: T) => {
   const [formData, setFormData] = useState<T>(initialValues);
   const [errors, setErrors] = useState<Partial<Record<keyof T, string>>>({});
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  useEffect(() => {
+    setFormData(initialValues);
+    setErrors({});
+  }, [initialValues]);
+
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setErrors({});
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
-  };
+  }, []);
 
-  const validateForm = (): T | null => {
+  const validateForm = useCallback((): T | null => {
     const result = schema.safeParse(formData);
     if (!result.success) {
       const fieldErrors: typeof errors = {};
-      result.error.errors.forEach((err) => {
+      result.error.issues.forEach((err) => {
         const field = err.path[0] as keyof T;
         fieldErrors[field] = err.message;
       });
@@ -27,20 +33,31 @@ export function useFormController<T extends Record<string, any>>(schema: ZodSche
 
     setErrors({});
     return result.data;
-  };
+  }, [schema, formData]);
 
-  const resetForm = () => {
+  const resetForm = useCallback(() => {
     setFormData(initialValues);
     setErrors({});
-  };
+  }, [initialValues]);
 
-  return {
-    formData,
-    errors,
-    handleChange,
-    validateForm,
-    resetForm,
-    setErrors,
-    setFormData,
-  };
-}
+  const setErrorsCallback = useCallback((newErrors: Partial<Record<keyof T, string>>) => {
+    setErrors(newErrors);
+  }, []);
+
+  const setFormDataCallback = useCallback((data: Partial<T>) => {
+    setFormData((prev) => ({ ...prev, ...data }));
+  }, []);
+
+  return useMemo(
+    () => ({
+      formData,
+      errors,
+      handleChange,
+      validateForm,
+      resetForm,
+      setErrors: setErrorsCallback,
+      setFormData: setFormDataCallback,
+    }),
+    [formData, errors, handleChange, validateForm, resetForm, setErrorsCallback, setFormDataCallback]
+  );
+};
