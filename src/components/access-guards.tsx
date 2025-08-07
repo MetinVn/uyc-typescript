@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { useUser } from "../contexts/context-user";
 import { ROUTES } from "../routes/routes";
+import { useUser } from "../contexts/context-user";
 
 // New wrapper: AuthInitializer
 // This wrapper is responsible for waiting until the initial Firebase auth state
@@ -11,7 +11,7 @@ export const AuthInitializer = () => {
   if (userLoading) {
     // While the authentication state is being determined, show a global loading indicator.
     // This is for the very first load of the application or when Firebase is re-initializing.
-    return <div className="min-h-screen flex items-center justify-center text-black">Loading application...</div>;
+    return <div className="min-h-screen text-center bg-[var(--gray-900)] text-white">Loading user information...</div>;
   }
 
   // Once userLoading is false, it means Firebase has checked the auth state.
@@ -21,7 +21,7 @@ export const AuthInitializer = () => {
 };
 
 // UserPage: Now only checks 'user' because 'userLoading' is already false here.
-export const UserPage = () => {
+export const UserPages = () => {
   const { user } = useUser();
 
   // If user is null, redirect to sign-in. This happens instantly if userLoading is false.
@@ -29,7 +29,7 @@ export const UserPage = () => {
 };
 
 // GuestPage: Now only checks 'user' because 'userLoading' is already false here.
-export const GuestPage = () => {
+export const GuestPages = () => {
   const { user } = useUser();
 
   // If user is not null, redirect to home. This happens instantly if userLoading is false.
