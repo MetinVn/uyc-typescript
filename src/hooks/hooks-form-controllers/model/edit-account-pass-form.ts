@@ -1,19 +1,27 @@
 import { z } from "zod";
 import { useFormController } from "../controller/form-controller";
 
+import { useMemo } from "react";
+
 const editProfilePassSchema = z.object({
   currentPassword: z
     .string()
-    .min(6, "Password must be at least 6 characters")
-    .max(35, "Password can't exceed 35 characters"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
+    .trim()
+    .nonempty("Password can't be empty")
+    .transform((value) => value.replace(/\s+/g, ""))
+    .pipe(z.string().min(6, "Password must be at least 6 characters")),
+  password: z
+    .string()
+    .trim()
+    .nonempty("New password can't be empty")
+    .transform((value) => value.replace(/\s+/g, ""))
+    .pipe(z.string().min(6, "New password must be at least 6 characters")),
 });
 
 export type EditProfilePassFormData = z.infer<typeof editProfilePassSchema>;
 
-export function useEditProfilePassForm() {
-  return useFormController<EditProfilePassFormData>(editProfilePassSchema, {
-    currentPassword: "",
-    password: "",
-  });
-}
+export const useEditProfilePassForm = () => {
+  const initialValues = useMemo(() => ({ currentPassword: "", password: "" }), []);
+
+  return useFormController<EditProfilePassFormData>(editProfilePassSchema, initialValues);
+};
