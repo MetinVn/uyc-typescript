@@ -1,10 +1,10 @@
-import { useRef, useState } from "react";
-import placeholder from "../../images/kitty.jpg";
+import { memo, useRef, useState } from "react";
+import placeholder from "../../images/kitty-reduced.webp";
 import { ROUTES } from "../../routes/routes";
 import { CustomLink } from "../reused-ui/reused-router-link";
 import { useHandleOutsideClicks } from "../../hooks/hook-outside-clicks";
 
-export const GuestProfile = () => {
+export const GuestProfile = memo(() => {
   const [expand, setExpand] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const handleToggle = () => setExpand((prev) => !prev);
@@ -29,7 +29,7 @@ export const GuestProfile = () => {
           src={placeholder}
           alt="profile"
           draggable={false}
-          className="w-15 h-15 rounded-full object-cover object-top"
+          className="w-15 h-15 rounded-full object-cover object-center"
         />
         <h1 className="px-2 text-[var(--gray-100)]">Guest Account</h1>
       </div>
@@ -74,4 +74,4 @@ export const GuestProfile = () => {
       </div>
     </div>
   );
-};
+});
