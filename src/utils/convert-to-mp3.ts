@@ -7,12 +7,7 @@ import { animateTo } from "../stores/shared/button-state";
 import { uycmusic } from "../stores/user/music-list";
 import { email } from "../stores/user/user-state";
 import { converted } from "../stores/shared/converted-song";
-
-type ConvertToMP3Props = {
-  youtubeLinkRef: React.RefObject<string>;
-  id: string;
-  resetInput: () => void;
-};
+import { ConvertToMP3Props } from "../types/types-utility-props";
 
 export async function ConvertToMP3(props: ConvertToMP3Props) {
   const { default: before, error: failed, pending, success } = animateTo(props.id);
