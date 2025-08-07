@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { IoMdClose } from "react-icons/io";
-import { MdDone } from "react-icons/md";
-import { LuLoader } from "react-icons/lu";
+import { X, Check, Loader } from "lucide-react";
+
+import { memo } from "react";
 import { useButtonState } from "../../stores/shared/button-state";
 
 type AnimatingButtonProps = {
@@ -14,7 +14,7 @@ type AnimatingButtonProps = {
 const sceneAnimDuration = 0.1;
 const colorAnimDuration = 0.3;
 
-export default function AnimatingButton({ defaultText, fullWidth = false, setButtonState, id }: AnimatingButtonProps) {
+export const AnimatingButton = memo(({ defaultText, fullWidth = false, setButtonState, id }: AnimatingButtonProps) => {
   const buttonState = useButtonState((s) => s.getButtonState(id));
 
   return (
@@ -22,10 +22,24 @@ export default function AnimatingButton({ defaultText, fullWidth = false, setBut
       disabled={buttonState !== "default"}
       onClick={(e) => setButtonState(e)}
       type="submit"
-      title="Convert the link"
-      className={`min-w-[70px] min-h-10 ${
-        fullWidth ? "w-full" : "w-fit"
-      } cursor-pointer rounded-md text-white flex justify-center items-center overflow-hidden`}
+      title={
+        buttonState === "default"
+          ? defaultText
+          : buttonState === "pending"
+          ? "Please Wait..."
+          : buttonState === "success"
+          ? "Success"
+          : "Error occurred"
+      }
+      className={`min-w-[70px] min-h-10 ${fullWidth ? "w-full" : "w-fit"} ${
+        buttonState === "default"
+          ? "cursor-default"
+          : buttonState === "pending"
+          ? "cursor-progress"
+          : buttonState === "success"
+          ? "cursor-grab"
+          : "cursor-not-allowed"
+      } rounded-md text-white flex justify-center items-center overflow-hidden`}
       initial={{ backgroundColor: "var(--gray-700)" }}
       animate={{
         backgroundColor:
@@ -62,7 +76,7 @@ export default function AnimatingButton({ defaultText, fullWidth = false, setBut
             transition={{ duration: sceneAnimDuration }}
             className="animate-[spin_1.1s_linear_infinite]"
           >
-            <LuLoader size={20} />
+            <Loader strokeWidth={1} size={24} />
           </motion.span>
         )}
 
@@ -74,7 +88,7 @@ export default function AnimatingButton({ defaultText, fullWidth = false, setBut
             exit={{ opacity: 0, y: 10 }}
             transition={{ duration: sceneAnimDuration }}
           >
-            <MdDone size={20} />
+            <Check strokeWidth={1} size={24} />
           </motion.span>
         )}
 
@@ -86,10 +100,10 @@ export default function AnimatingButton({ defaultText, fullWidth = false, setBut
             exit={{ opacity: 0, y: 10 }}
             transition={{ duration: sceneAnimDuration }}
           >
-            <IoMdClose size={20} />
+            <X strokeWidth={1} size={24} />
           </motion.span>
         )}
       </AnimatePresence>
     </motion.button>
   );
-}
+});
