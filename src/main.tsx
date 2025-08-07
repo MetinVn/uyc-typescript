@@ -1,46 +1,40 @@
+import { lazy } from "react";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./index.css";
-import { ROUTES } from "./routes/routes.ts";
-import { UserProvider } from "./contexts/context-user.tsx";
-import { lazy, Suspense } from "react";
-import { Notifications } from "./components/notifications.tsx";
-import { AuthInitializer, GuestPage, UserPage } from "./components/access-guards.tsx";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-const LazyApp = lazy(() => import("./app.tsx"));
-const LazySignIn = lazy(() => import("./pages/signin-page.tsx"));
-const LazySignUp = lazy(() => import("./pages/signup-page.tsx"));
-const LazyResetPassword = lazy(() => import("./pages/reset-password-page.tsx"));
-const LazyAccount = lazy(() => import("./pages/account-page.tsx"));
-const LazyMusic = lazy(() => import("./pages/music-page.tsx"));
-const LazyRouteNotFound = lazy(() => import("./pages/route-not-found.tsx"));
+import { ROUTES } from "./routes/routes.ts";
+import { Notifications } from "./components/notifications.tsx";
+import { UserProvider } from "./contexts/context-user.tsx";
+import { AuthInitializer, GuestPages, UserPages } from "./components/access-guards.tsx";
+
+const HomePage = lazy(() => import("./pages/Home/home-page.tsx"));
+const RouteNotFoundPage = lazy(() => import("./pages/NotFound/route-not-found.tsx"));
+const AccountPage = lazy(() => import("./pages/Account/account-page.tsx"));
+const MusicPage = lazy(() => import("./pages/Music/music-chunk.tsx"));
+const ResetPasswordPage = lazy(() => import("./pages/ResetPassword/reset-password-page.tsx"));
+const SignInPage = lazy(() => import("./pages/SignIn/signin-page.tsx"));
+const SignUpPage = lazy(() => import("./pages/SignUp/signup-page.tsx"));
 
 createRoot(document.getElementById("root")!).render(
-  <UserProvider>
-    <Router>
-      <Notifications />
-      <Suspense fallback={<div className="min-h-screen text-center text-black">Loading page...</div>}>
-        <Routes>
-          {/* Public routes (no auth required) */}
-          <Route index path={ROUTES.HOME} element={<LazyApp />} />
-          <Route path={ROUTES.FORGOT_PASSWORD} element={<LazyResetPassword />} />
-          <Route path={ROUTES.ROUTE_NOT_FOUND} element={<LazyRouteNotFound />} />
-
-          <Route element={<AuthInitializer />}>
-            {/* Guest-only routes */}
-            <Route element={<GuestPage />}>
-              <Route path={ROUTES.AUTH.SIGN_IN} element={<LazySignIn />} />
-              <Route path={ROUTES.AUTH.SIGN_UP} element={<LazySignUp />} />
-            </Route>
-
-            {/* User-only routes */}
-            <Route element={<UserPage />}>
-              <Route path={ROUTES.MUSIC} element={<LazyMusic />} />
-              <Route path={ROUTES.AUTH.ACCOUNT} element={<LazyAccount />} />
-            </Route>
+  <Router>
+    <Notifications />
+    <UserProvider>
+      <Routes>
+        <Route index path={ROUTES.HOME} element={<HomePage />} />
+        <Route path={ROUTES.ROUTE_NOT_FOUND} element={<RouteNotFoundPage />} />
+        <Route path={ROUTES.FORGOT_PASSWORD} element={<ResetPasswordPage />} />
+        <Route element={<AuthInitializer />}>
+          <Route element={<GuestPages />}>
+            <Route path={ROUTES.AUTH.SIGN_IN} element={<SignInPage />} />
+            <Route path={ROUTES.AUTH.SIGN_UP} element={<SignUpPage />} />
           </Route>
-        </Routes>
-      </Suspense>
-    </Router>
-  </UserProvider>
+          <Route element={<UserPages />}>
+            <Route path={ROUTES.MUSIC} element={<MusicPage />} />
+            <Route path={ROUTES.AUTH.ACCOUNT} element={<AccountPage />} />
+          </Route>
+        </Route>
+      </Routes>
+    </UserProvider>
+  </Router>
 );
