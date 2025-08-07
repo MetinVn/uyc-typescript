@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { FiChevronDown } from "react-icons/fi";
+import { ChevronDown } from "lucide-react";
 import { useHandleOutsideClicks } from "../../hooks/hook-outside-clicks";
 
 const sortOptions = [
@@ -41,7 +41,7 @@ export const SortSelect = ({ selected, onChange }: ISortSelectProps) => {
         className="w-full cursor-pointer text-[var(--gray-100)] bg-[var(--gray-700)] hover:bg-[var(--gray-600)] min-h-10 p-2 rounded-md flex justify-between items-center transition"
       >
         <span>{displayLabel}</span>
-        <FiChevronDown className={`transition-transform ${isOpen ? "-rotate-90" : ""}`} />
+        <ChevronDown className={`transition-transform ${isOpen ? "-rotate-90" : ""}`} />
       </button>
 
       <div
