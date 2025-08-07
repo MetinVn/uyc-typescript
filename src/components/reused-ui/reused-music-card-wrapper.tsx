@@ -1,28 +1,28 @@
-import { useState } from "react";
+import { memo, useCallback, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Music } from "../../types/types-converted-music";
 import { MusicCard } from "./reused-music-card";
-import { uycmusic } from "../../stores/user/music-list";
-import { notify } from "../../stores/shared/notification";
 import { SortSelect, SortOptions } from "./reused-sort-options";
 import { useConvertedSong } from "../../stores/shared/converted-song";
+import { uycmusic } from "../../stores/user/music-list";
+import { notify } from "../../stores/shared/notification";
 
 interface IMusicCardWrapper {
   musicList: Music[];
   sectionTitle: string;
 }
 
-export const MusicCardWrapper = ({ musicList, sectionTitle }: IMusicCardWrapper) => {
+export const MusicCardWrapper = memo(({ musicList, sectionTitle }: IMusicCardWrapper) => {
   const [sortOption, setSortOption] = useState<SortOptions>("");
   const removeFromConverted = useConvertedSong((state) => state.removeFromConverted);
 
-  const handleRemoveSong = (song: Music) => {
+  const handleRemoveSong = useCallback((song: Music) => {
     uycmusic.remove(song.id);
     removeFromConverted(song.id);
     notify.success(`${song.title} removed`, 1500);
-  };
+  }, []);
 
-  const handleToggleFavorite = (song: Music) => {
+  const handleToggleFavorite = useCallback((song: Music) => {
     const isFavorite = song.starred;
     uycmusic.favor(song.id);
     if (isFavorite) {
@@ -30,9 +30,9 @@ export const MusicCardWrapper = ({ musicList, sectionTitle }: IMusicCardWrapper)
     } else {
       notify.success(`${song.title} added to favorites`, 2500);
     }
-  };
+  }, []);
 
-  const handleRate = (rating: number, music: Music) => {
+  const handleRate = useCallback((rating: number, music: Music) => {
     const isRatededSame = music.rating === rating;
     uycmusic.rate(rating, music.id);
     if (isRatededSame) {
@@ -40,14 +40,20 @@ export const MusicCardWrapper = ({ musicList, sectionTitle }: IMusicCardWrapper)
       return;
     }
     notify.success(`Rated ${music.title} with ${rating} star${rating > 1 ? "s" : ""}`, 2500);
-  };
+  }, []);
 
-  const sortedMusicList = [...musicList].sort((a, b) => {
-    if (sortOption === "rating") return b.rating - a.rating;
-    if (sortOption === "size") return b.fileSize - a.fileSize;
-    if (sortOption === "name") return a.title.localeCompare(b.title);
-    return 0;
-  });
+  const sortedMusicList = useMemo(() => {
+    if (!musicList || musicList.length === 0) {
+      return [];
+    }
+    const sorted = [...musicList].sort((a, b) => {
+      if (sortOption === "rating") return b.rating - a.rating;
+      if (sortOption === "size") return b.fileSize - a.fileSize;
+      if (sortOption === "name") return a.title.localeCompare(b.title);
+      return 0;
+    });
+    return sorted;
+  }, [musicList, sortOption]);
 
   return (
     <>
@@ -79,4 +85,4 @@ export const MusicCardWrapper = ({ musicList, sectionTitle }: IMusicCardWrapper)
       )}
     </>
   );
-};
+});
