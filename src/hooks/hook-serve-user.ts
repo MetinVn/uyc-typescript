@@ -9,27 +9,27 @@ export interface IServedUser {
 }
 
 export const ServeUser = (): IServedUser => {
-  const [user, setUser] = useState<User | null>(null);
-  const [userLoading, setUserLoading] = useState(true);
+  const [userState, setUserState] = useState<IServedUser>({
+    user: null,
+    userLoading: true,
+  });
   const setIsEmailVerified = useUserState((state) => state.setIsEmailVerified);
 
   useEffect(() => {
     const stopListening = onAuthStateChanged(auth, (user) => {
-      if (!user?.emailVerified) {
-        setUser(null);
-        setIsEmailVerified(false);
-      } else if (user && user.emailVerified) {
-        setUser(user);
-        setIsEmailVerified(true);
-      } else {
-        setUser(null);
-        setIsEmailVerified(false);
-      }
-      setUserLoading(false);
+      const isEmailVerified = user?.emailVerified ?? false;
+      const servedUser = isEmailVerified ? user : null;
+
+      setUserState({
+        user: servedUser,
+        userLoading: false,
+      });
+
+      setIsEmailVerified(isEmailVerified);
     });
 
     return () => stopListening();
-  }, []);
+  }, [setIsEmailVerified]);
 
-  return { user, userLoading };
+  return { user: userState.user, userLoading: userState.userLoading };
 };
