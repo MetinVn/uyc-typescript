@@ -10,6 +10,12 @@ export const useHandleOutsideClicks = ({ isActive, ref, stateChanger }: HandleOu
   useEffect(() => {
     if (!isActive) return;
 
+    const handleKeyStrokes = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        stateChanger(false);
+      }
+    };
+
     const handleClickOutside = (e: MouseEvent) => {
       if (ref.current && !ref.current.contains(e.target as Node)) {
         stateChanger(false);
@@ -17,9 +23,11 @@ export const useHandleOutsideClicks = ({ isActive, ref, stateChanger }: HandleOu
     };
 
     document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleKeyStrokes);
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleKeyStrokes);
     };
   }, [isActive, ref, stateChanger]);
 };
