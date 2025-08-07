@@ -4,6 +4,7 @@ import { Music } from "../../types/types-converted-music";
 
 interface IMusicList {
   music: Music[];
+  getListLength: () => number;
   addToMusicList: (song: Music) => void;
   removeFromMusicList: (id: Music["id"]) => void;
   rateMusic: (rating: Music["rating"], id: Music["id"]) => void;
@@ -15,6 +16,11 @@ export const useMusicList = create<IMusicList>()(
   persist(
     (set, get) => ({
       music: [],
+
+      getListLength: () => {
+        return get().music.length;
+      },
+
       addToMusicList: (song) => {
         const prev = get().music;
         const index = prev.findIndex((item) => item.id === song.id);
