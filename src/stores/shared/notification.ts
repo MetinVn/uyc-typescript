@@ -1,12 +1,5 @@
 import { create } from "zustand";
-import { NotificationType } from "../../types/types-notification";
-
-export interface INotification {
-  id: string;
-  text: string;
-  type: NotificationType;
-  autoCloseDelay?: number;
-}
+import { INotification, NotificationType } from "../../types/types-notification";
 
 const MAX_STACK = 10;
 
@@ -25,9 +18,8 @@ export const useNotification = create<INotificationStore>((set, get) => ({
     if (notifications.some((n) => n.text === text && n.type === type)) return;
 
     const id = crypto.randomUUID();
-    const newNotification: INotification = { id, type, text, autoCloseDelay };
 
-    const updated = [...notifications, newNotification];
+    const updated: INotification[] = [...notifications, { id, type, text, autoCloseDelay }];
     if (updated.length > MAX_STACK) updated.shift();
 
     set({ notifications: updated });
