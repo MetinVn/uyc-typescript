@@ -1,43 +1,36 @@
-import { FC, useState, useEffect, SyntheticEvent } from "react";
+import { FC, useEffect, useState } from "react";
 import fallbackImg from "../images/profilePic.avif";
 
-type Props = {
+type ImageLoaderProps = {
   imgSrc: string | null | undefined;
   alt?: string;
-  loading?: "lazy" | "eager";
   className?: string;
-  onClick?: () => void;
+  loading?: "eager" | "lazy" | undefined;
 };
 
-const ImageLoader: FC<Props> = ({ imgSrc, alt = "", loading = "lazy", className = "", onClick }) => {
-  const [currentSrc, setCurrentSrc] = useState<string>(imgSrc || fallbackImg);
+export const ImageLoader: FC<ImageLoaderProps> = ({
+  imgSrc,
+  alt = "Profile picture",
+  className = "",
+  loading = "lazy",
+}) => {
+  // We use state to track if there was an error, which simplifies the rendering logic.
+  const [hasError, setHasError] = useState(false);
 
+  // We can determine the source URL directly.
+  const imageUrl = hasError || !imgSrc ? fallbackImg : imgSrc;
+
+  // The onError handler resets the image to the fallback image.
+  const handleError = () => setHasError(true);
+
+  // When the imgSrc prop changes, we need to reset the error state.
+  // This is crucial, as a new imgSrc might be valid.
+  // We use useEffect to handle this side effect.
   useEffect(() => {
-    setCurrentSrc(imgSrc || fallbackImg);
+    setHasError(false);
   }, [imgSrc]);
 
-  const handleError = (e: SyntheticEvent<HTMLImageElement, Event>) => {
-    if (currentSrc !== fallbackImg) {
-      setCurrentSrc(fallbackImg);
-    }
-  };
-
-  const combinedClassName = `
-    ${className}
-    ${onClick ? "cursor-pointer" : ""}
-  `.trim();
-
   return (
-    <img
-      src={currentSrc}
-      onError={handleError}
-      alt={alt}
-      loading={loading}
-      className={combinedClassName}
-      onClick={onClick}
-      draggable="false"
-    />
+    <img src={imageUrl} onError={handleError} alt={alt} loading={loading} className={className} draggable="false" />
   );
 };
-
-export default ImageLoader;
