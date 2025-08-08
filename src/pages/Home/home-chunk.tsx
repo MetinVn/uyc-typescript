@@ -8,7 +8,7 @@ import { useMusicList } from "../../stores/user/music-list";
 import { UserProfile } from "../../components/user-ui/home-page-profile";
 import { GuestProfile } from "../../components/guest-ui/home-page-profile";
 import { CustomInput } from "../../components/reused-ui/reused-input";
-import { CustomSelect } from "../../components/reused-ui/reused-select";
+import { CustomSelect } from "../../components/reused-ui/select/reused-select";
 import { AnimatingButton } from "../../components/reused-ui/reused-animating-button";
 import { ConvertedSongUI } from "../../components/reused-ui/reused-converted-song";
 
