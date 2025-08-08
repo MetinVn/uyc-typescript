@@ -10,14 +10,21 @@ export const useFormController = <T extends Record<string, any>>(schema: ZodType
     setErrors({});
   }, [initialValues]);
 
-  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setErrors({});
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  }, []);
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const { name, value } = e.target;
+      setErrors((prev) => ({
+        ...prev,
+        [name]: "",
+      }));
+
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    },
+    [errors]
+  );
 
   const validateForm = useCallback((): T | null => {
     const result = schema.safeParse(formData);
