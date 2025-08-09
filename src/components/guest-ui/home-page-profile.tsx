@@ -1,6 +1,7 @@
 import { lazy, memo, Suspense, useRef, useState } from "react";
 import placeholder from "../../images/kitty-reduced.webp";
 import { useHandleOutsideClicks } from "../../hooks/hook-outside-clicks";
+import { AnimatePresence, motion } from "framer-motion";
 
 export const GuestProfile = memo(() => {
   const [expand, setExpand] = useState(false);
@@ -9,6 +10,24 @@ export const GuestProfile = memo(() => {
   const LazyGuestProfileDropdown = lazy(() => import("./home-page-profile-dropdown"));
 
   useHandleOutsideClicks({ isActive: expand, ref: dropdownRef, stateChanger: setExpand });
+
+  const dropdownVariants = {
+    hidden: {
+      opacity: 0,
+      y: 0,
+      transition: {
+        duration: 0.1,
+      },
+    },
+    visible: {
+      opacity: 1,
+      y: "10px",
+      transition: {
+        duration: 0.2,
+        ease: "easeOut",
+      },
+    },
+  };
 
   return (
     <div ref={dropdownRef} className="relative w-fit sm:mr-20">
@@ -34,17 +53,27 @@ export const GuestProfile = memo(() => {
         <img src={placeholder} alt="profile" draggable={false} className="w-14 h-14 rounded-full object-cover" />
       </button>
 
-      {expand && (
-        <Suspense
-          fallback={
-            <div className="absolute text-center text-white inset-0 -translate-x-30 sm:translate-x-0 translate-y-20 w-full min-w-40 h-20 p-4 rounded-xl z-20 bg-[var(--gray-800)]">
-              Loading...
-            </div>
-          }
-        >
-          <LazyGuestProfileDropdown />
-        </Suspense>
-      )}
+      <AnimatePresence>
+        {expand && (
+          <motion.div
+            key="dropdown-profile"
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            variants={dropdownVariants}
+          >
+            <Suspense
+              fallback={
+                <div className="absolute text-center text-white inset-0 -translate-x-30 sm:translate-x-0 w-full min-w-40 h-20 p-4 rounded-xl z-20 bg-[var(--gray-800)]">
+                  Loading...
+                </div>
+              }
+            >
+              <LazyGuestProfileDropdown />
+            </Suspense>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 });
