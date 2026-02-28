@@ -19,22 +19,25 @@ const getColorClasses = (type: NotificationType) => {
 
 export const Notifications = () => {
   const notifications = useNotification((state) => state.notifications);
-  const removeNotification = useNotification((state) => state.removeNotification);
+
+  const removeNotification = useNotification(
+    (state) => state.removeNotification,
+  );
 
   const displayed = notifications.slice(-5);
 
   return (
-    <div className="#notification-container fixed bottom-4 right-4 z-[9999] flex flex-col items-end gap-3 max-w-md">
-      <AnimatePresence mode="sync" initial={false}>
+    <div className="fixed bottom-4 right-1/2 translate-x-[50%] z-[9999] flex flex-col items-center gap-3 max-w-md">
+      <AnimatePresence mode="sync" initial={true}>
         {displayed.map((notif, index) => (
           <motion.div
             layout
             key={notif.id}
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
             exit={{
               opacity: 0,
-              x: 40,
+              y: 40,
               transition: {
                 duration: 0.2,
                 delay: index * 0.05,
@@ -49,7 +52,7 @@ export const Notifications = () => {
             whileHover={{ scale: 0.97 }}
             onClick={() => removeNotification(notif.id)}
             className={`text-white cursor-pointer border px-4 py-3 rounded-lg shadow-lg min-w-fit flex justify-between items-center ${getColorClasses(
-              notif.type
+              notif.type,
             )}`}
           >
             <span className="text-sm max-w-[300px]">{notif.text}</span>
