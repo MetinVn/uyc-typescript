@@ -1,5 +1,21 @@
-import withLazyLoad from "../lazy-load-pages";
+import { lazy, Suspense } from "react";
 
-const ResetPasswordPageWrapper = withLazyLoad(() => import("./reset-password-chunk"), "Loading password reset page...");
+export const PasswordResetPage = () => {
+  const LazyChunk = lazy(() => import("./reset-password-chunk"));
 
-export default ResetPasswordPageWrapper;
+  return (
+    <>
+      <Suspense
+        fallback={
+          <div className="min-h-screen text-center text-white bg-[var(--gray-900)]">
+            Loading password reset page...
+          </div>
+        }
+      >
+        <LazyChunk />
+      </Suspense>
+    </>
+  );
+};
+
+export default PasswordResetPage;

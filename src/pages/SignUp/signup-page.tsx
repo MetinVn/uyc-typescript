@@ -1,5 +1,19 @@
-import withLazyLoad from "../lazy-load-pages";
+import { lazy, Suspense } from "react";
 
-const SignUpPageWrapper = withLazyLoad(() => import("./signup-page-chunk"), "Loading signin page...");
+export const SignUpPage = () => {
+  const LazyChunk = lazy(() => import("./signup-page-chunk"));
 
-export default SignUpPageWrapper;
+  return (
+    <>
+      <Suspense
+        fallback={
+          <div className="min-h-screen text-center text-white bg-[var(--gray-900)]">Loading sign up page...</div>
+        }
+      >
+        <LazyChunk />
+      </Suspense>
+    </>
+  );
+};
+
+export default SignUpPage;

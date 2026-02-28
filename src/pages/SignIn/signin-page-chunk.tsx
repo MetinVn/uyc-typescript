@@ -10,6 +10,8 @@ import { CustomLink } from "../../components/reused-ui/reused-router-link";
 import { FormFields } from "../../components/reused-ui/reused-form-fields";
 import { AnimatingButton } from "../../components/reused-ui/reused-animating-button";
 import { RegisterWithGoogle } from "../../components/reused-ui/reused-google-login";
+import { browserSessionPersistence, setPersistence } from "firebase/auth";
+import { auth } from "@/firebase";
 
 export const SignInComponent = () => {
   const navigate = useNavigate();
@@ -21,6 +23,17 @@ export const SignInComponent = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault();
     pending();
+
+    try {
+      await setPersistence(auth, browserSessionPersistence);
+    } catch (error) {
+      console.error("Failed to set authentication persistence:", error);
+      failed();
+      before();
+      notify.error("An authentication error occurred. Please try again.", 3500);
+      return false;
+    }
+
     const validated = validateForm();
     if (!validated) {
       notify.error("Fill the form fields correctly", 3500);
@@ -40,6 +53,7 @@ export const SignInComponent = () => {
         before();
         return false;
       }
+
       resetForm();
       setErrors({});
       notify.success(`Welcome ${user.displayName || "User"}`, 3500);
