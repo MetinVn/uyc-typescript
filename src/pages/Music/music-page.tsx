@@ -1,5 +1,17 @@
-import withLazyLoad from "../lazy-load-pages";
+import { lazy, Suspense } from "react";
 
-const MusicPageWrapper = withLazyLoad(() => import("./music-chunk"), "Loading music page...");
+export const MusicPage = () => {
+  const LazyChunk = lazy(() => import("./music-chunk"));
 
-export default MusicPageWrapper;
+  return (
+    <>
+      <Suspense
+        fallback={<div className="min-h-screen text-center text-white bg-[var(--gray-900)]">Loading music page...</div>}
+      >
+        <LazyChunk />
+      </Suspense>
+    </>
+  );
+};
+
+export default MusicPage;
