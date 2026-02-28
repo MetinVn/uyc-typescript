@@ -4,6 +4,7 @@ import { Music2, Video } from "lucide-react";
 import { AvailableFormats, useMusicFormat } from "../../../stores/shared/format-change";
 import { useHandleOutsideClicks } from "../../../hooks/hook-outside-clicks";
 import { AnimatePresence, motion } from "framer-motion";
+import { DropdownLoader } from "./dropdown-loader";
 
 export const CustomSelect = memo(() => {
   const LazyCustomSelectDropdown = lazy(() => import("./reused-select-dropdown"));
@@ -28,7 +29,7 @@ export const CustomSelect = memo(() => {
       },
     },
     visible: {
-      opacity: 1,
+      opacity: 0.8,
       y: "1rem",
       transition: {
         duration: 0.2,
@@ -60,13 +61,9 @@ export const CustomSelect = memo(() => {
             animate="visible"
             exit="hidden"
             variants={dropdownVariants}
-            className={`absolute w-full rounded-md z-50 bg-[var(--gray-700)] overflow-hidden`}
+            className={`absolute w-full bg-[var(--gray-700)] rounded-md overflow-hidden`}
           >
-            <Suspense
-              fallback={
-                <div className="w-full h-10 flex items-center justify-center text-[var(--gray-300)]">Loading...</div>
-              }
-            >
+            <Suspense fallback={<DropdownLoader />}>
               <LazyCustomSelectDropdown onClose={setIsOpen} iconMap={iconMap} />
             </Suspense>
           </motion.div>
