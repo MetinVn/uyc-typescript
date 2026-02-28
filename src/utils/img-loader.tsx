@@ -12,7 +12,7 @@ export const ImageLoader: FC<ImageLoaderProps> = ({
   imgSrc,
   alt = "Profile picture",
   className = "",
-  loading = "lazy",
+  loading = "eager",
 }) => {
   // We use state to track if there was an error, which simplifies the rendering logic.
   const [hasError, setHasError] = useState(false);
