@@ -43,10 +43,17 @@ export const FormFields = memo(
     const [showCurrentPassword, setShowCurrentPassword] = useState(false);
 
     return (
-      <form autoComplete="on" onSubmit={onSubmit} className="bg-[var(--gray-800)] p-0 rounded-lg w-full">
+      <form
+        autoComplete="on"
+        onSubmit={onSubmit}
+        className="bg-[var(--gray-800)] p-0 rounded-lg w-full"
+      >
         {showNameField && (
           <div className="mb-4">
-            <label htmlFor="displayName" className="text-[var(--gray-100)] text-sm block mb-1">
+            <label
+              htmlFor="displayName"
+              className="text-[var(--gray-100)] text-sm block mb-1"
+            >
               Name
             </label>
             <input
@@ -63,13 +70,20 @@ export const FormFields = memo(
                   : "border-[var(--gray-600)] focus:ring-[var(--accent-500)]"
               } text-[var(--gray-100)] rounded-md focus:outline-none focus:ring-2 placeholder-[var(--gray-400)] transition`}
             />
-            {errors.displayName && <p className="text-[var(--red-500)] text-xs mt-1">{errors.displayName}</p>}
+            {errors.displayName && (
+              <p className="text-[var(--red-500)] text-xs mt-1">
+                {errors.displayName}
+              </p>
+            )}
           </div>
         )}
 
         {showEmailField && (
           <div className="mb-4">
-            <label htmlFor="email" className="text-[var(--gray-100)] text-sm block mb-1">
+            <label
+              htmlFor="email"
+              className="text-[var(--gray-100)] text-sm block mb-1"
+            >
               Email
             </label>
             <input
@@ -86,14 +100,21 @@ export const FormFields = memo(
                   : "border-[var(--gray-600)] focus:ring-[var(--accent-500)]"
               } text-[var(--gray-100)] rounded-md focus:outline-none focus:ring-2 placeholder-[var(--gray-400)] transition`}
             />
-            {errors.email && <p className="text-[var(--red-500)] text-xs mt-1">{errors.email}</p>}
+            {errors.email && (
+              <p className="text-[var(--red-500)] text-xs mt-1">
+                {errors.email}
+              </p>
+            )}
           </div>
         )}
 
         {showCurrentPasswordField && (
           <div className="mb-4">
             <div className="flex justify-between items-center mb-1">
-              <label htmlFor="currentPassword" className="text-[var(--gray-100)] text-sm">
+              <label
+                htmlFor="currentPassword"
+                className="text-[var(--gray-100)] text-sm"
+              >
                 Current Password
               </label>
               {showForgotCurrentPasswordLink && (
@@ -123,20 +144,35 @@ export const FormFields = memo(
                 type="button"
                 onClick={() => setShowCurrentPassword((prev) => !prev)}
                 className="absolute cursor-pointer right-3 top-1/2 transform -translate-y-1/2 text-[var(--gray-400)] hover:text-[var(--gray-100)] transition"
-                aria-label={showCurrentPassword ? "Hide current password" : "Show current password"}
+                aria-label={
+                  showCurrentPassword
+                    ? "Hide current password"
+                    : "Show current password"
+                }
                 tabIndex={-1}
               >
-                {showCurrentPassword ? <EyeClosed size={18} /> : <Eye size={18} />}
+                {showCurrentPassword ? (
+                  <EyeClosed size={18} />
+                ) : (
+                  <Eye size={18} />
+                )}
               </button>
             </div>
-            {errors.currentPassword && <p className="text-[var(--red-500)] text-xs mt-1">{errors.currentPassword}</p>}
+            {errors.currentPassword && (
+              <p className="text-[var(--red-500)] text-xs mt-1">
+                {errors.currentPassword}
+              </p>
+            )}
           </div>
         )}
 
         {showPasswordField && (
           <div className="mb-4">
             <div className="flex justify-between items-center mb-1">
-              <label htmlFor="password" className="text-[var(--gray-100)] text-sm">
+              <label
+                htmlFor="password"
+                className="text-[var(--gray-100)] text-sm"
+              >
                 Password
               </label>
               {showForgotPasswordLink && (
@@ -173,11 +209,21 @@ export const FormFields = memo(
                 {showPassword ? <EyeClosed size={18} /> : <Eye size={18} />}
               </button>
             </div>
-            {errors.password && <p className="text-[var(--red-500)] text-xs mt-1">{errors.password}</p>}
+            {errors.password && (
+              <p className="text-[var(--red-500)] text-xs mt-1">
+                {errors.password}
+              </p>
+            )}
           </div>
         )}
 
-        <button onClick={onSubmit} type="submit" className="sr-only" aria-hidden="true" tabIndex={-1}>
+        <button
+          onClick={onSubmit}
+          type="submit"
+          className="sr-only"
+          aria-hidden="true"
+          tabIndex={-1}
+        >
           submit
         </button>
       </form>

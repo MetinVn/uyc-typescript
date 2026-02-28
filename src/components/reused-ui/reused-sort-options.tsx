@@ -2,12 +2,6 @@ import { useState, useRef } from "react";
 import { ChevronDown } from "lucide-react";
 import { useHandleOutsideClicks } from "../../hooks/hook-outside-clicks";
 
-const sortOptions = [
-  { value: "rating", label: "Rating" },
-  { value: "size", label: "File size" },
-  { value: "name", label: "From A to Z" },
-];
-
 export type SortOptions = "rating" | "size" | "name" | "";
 
 interface ISortSelectProps {
@@ -16,9 +10,16 @@ interface ISortSelectProps {
 }
 
 export const SortSelect = ({ selected, onChange }: ISortSelectProps) => {
+
+  
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-
+  
+  const sortOptions = [
+  { value: "rating", label: "Rating" },
+  { value: "size", label: "File size" },
+  { value: "name", label: "From A to Z" },
+];
   useHandleOutsideClicks({ isActive: isOpen, ref: dropdownRef, stateChanger: setIsOpen });
 
   const handleSelect = (option: SortOptions) => {
