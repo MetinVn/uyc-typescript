@@ -7,8 +7,6 @@ interface CustomSelectDropdownProps {
 }
 
 export const CustomSelectDropdown = ({ onClose, iconMap }: CustomSelectDropdownProps) => {
-  console.log("CustomSelectDropdown rendered");
-
   const formats: AvailableFormats[] = ["mp3", "mp4"];
   const setCurrentFormat = useMusicFormat((state) => state.setFormat);
 
