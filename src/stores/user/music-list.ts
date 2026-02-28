@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { Music } from "../../types/types-converted-music";
+import { type Music } from "../../types/types-converted-music";
 
 interface IMusicList {
   music: Music[];
@@ -22,11 +22,11 @@ export const useMusicList = create<IMusicList>()(
       },
 
       addToMusicList: (song) => {
-        const prev = get().music;
-        const index = prev.findIndex((item) => item.id === song.id);
-        if (index !== -1) return;
-        const newList = [...prev, song];
-        set({ music: newList });
+        set((state) =>
+          state.music.some((m) => m.id === song.id)
+            ? state
+            : { ...state, music: [...state.music, song] },
+        );
       },
       removeFromMusicList: (id) => {
         const prev = get().music;
@@ -64,14 +64,15 @@ export const useMusicList = create<IMusicList>()(
     }),
     {
       name: "music-list",
-    }
-  )
+    },
+  ),
 );
 
 export const uycmusic = {
   save: (song: Music) => useMusicList.getState().addToMusicList(song),
   remove: (id: Music["id"]) => useMusicList.getState().removeFromMusicList(id),
-  rate: (rating: Music["rating"], id: Music["id"]) => useMusicList.getState().rateMusic(rating, id),
+  rate: (rating: Music["rating"], id: Music["id"]) =>
+    useMusicList.getState().rateMusic(rating, id),
   favor: (id: Music["id"]) => useMusicList.getState().makeFavorite(id),
   destroy: () => useMusicList.getState().clearMusicList(),
 };

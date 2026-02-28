@@ -32,7 +32,9 @@ export const useConvertedSong = create<IConvertedSong>()(
         set({ song: null });
       },
       removeFromConverted: (songId: string) => {
-        if (get().song?.id === songId) {
+        const currentSong = get().song;
+
+        if (currentSong && currentSong.id === songId) {
           set({ song: null });
         }
       },
@@ -52,13 +54,12 @@ export const useConvertedSong = create<IConvertedSong>()(
           }
         }
       },
-    }
-  )
+    },
+  ),
 );
 
 export const converted = {
   add: (song: Music) => useConvertedSong.getState().addToConverted(song),
   clear: () => useConvertedSong.getState().clearSong(),
-  get: () => useConvertedSong.getState().song,
-  use: () => useConvertedSong((s) => s.song),
+  use: () => useConvertedSong.getState().song,
 };

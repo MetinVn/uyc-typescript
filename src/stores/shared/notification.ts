@@ -1,11 +1,18 @@
 import { create } from "zustand";
-import { INotification, NotificationType } from "../../types/types-notification";
+import {
+  INotification,
+  NotificationType,
+} from "../../types/types-notification";
 
-const MAX_STACK = 10;
+const MAX_NOTIFICATION_STACK = 6;
 
 interface INotificationStore {
   notifications: INotification[];
-  addNotification: (type: NotificationType, text: string, autoCloseDelay?: number) => void;
+  addNotification: (
+    type: NotificationType,
+    text: string,
+    autoCloseDelay?: number
+  ) => void;
   removeNotification: (id: string) => void;
 }
 
@@ -19,8 +26,11 @@ export const useNotification = create<INotificationStore>((set, get) => ({
 
     const id = crypto.randomUUID();
 
-    const updated: INotification[] = [...notifications, { id, type, text, autoCloseDelay }];
-    if (updated.length > MAX_STACK) updated.shift();
+    const updated: INotification[] = [
+      ...notifications,
+      { id, type, text, autoCloseDelay },
+    ];
+    if (updated.length > MAX_NOTIFICATION_STACK) updated.shift();
 
     set({ notifications: updated });
 
@@ -37,8 +47,12 @@ export const useNotification = create<INotificationStore>((set, get) => ({
 }));
 
 export const notify = {
-  success: (text: string, delay?: number) => useNotification.getState().addNotification("success", text, delay),
-  error: (text: string, delay?: number) => useNotification.getState().addNotification("error", text, delay),
-  warning: (text: string, delay?: number) => useNotification.getState().addNotification("warning", text, delay),
-  info: (text: string, delay?: number) => useNotification.getState().addNotification("info", text, delay),
+  success: (text: string, delay?: number) =>
+    useNotification.getState().addNotification("success", text, delay),
+  error: (text: string, delay?: number) =>
+    useNotification.getState().addNotification("error", text, delay),
+  warning: (text: string, delay?: number) =>
+    useNotification.getState().addNotification("warning", text, delay),
+  info: (text: string, delay?: number) =>
+    useNotification.getState().addNotification("info", text, delay),
 };
