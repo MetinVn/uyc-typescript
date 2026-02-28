@@ -10,31 +10,27 @@ export const GuestProfileDropdown = () => {
   ];
 
   return (
-    <div
-      className={`absolute right-1/2 translate-x-4 sm:translate-x-1/2 top-[120%] min-w-55 w-full p-4 rounded-xl z-20 transition-all bg-[var(--gray-800)]`}
-    >
-      <div className="flex flex-col gap-1 text-[var(--gray-100)]">
-        {/* Welcome section */}
-        <div className="text-center text-xs">
-          <p className="font-semibold">&#128075; Welcome!</p>
-          <p>Sign in to access these features:</p>
-        </div>
+    <div className="flex flex-col gap-1 text-[var(--gray-100)]">
+      {/* Welcome section */}
+      <div className="text-center text-xs">
+        <p className="font-semibold">&#128075; Welcome!</p>
+        <p>Sign in to access these features:</p>
+      </div>
 
-        {/* Feature List */}
-        <ul className="space-y-1 text-xs">
-          {featuresToUnlock.map((item, index) => (
-            <li key={index} className="flex items-center gap-2 pl-1">
-              <span className="w-4 text-center">{item.icon}</span>
-              <span>{item.label}</span>
-            </li>
-          ))}
-        </ul>
+      {/* Feature List */}
+      <ul className="space-y-1 text-xs">
+        {featuresToUnlock.map((item, index) => (
+          <li key={index} className="flex items-center gap-2 pl-1">
+            <span className="w-4 text-center">{item.icon}</span>
+            <span>{item.label}</span>
+          </li>
+        ))}
+      </ul>
 
-        {/* Action buttons */}
-        <div className="flex flex-col font-medium items-center text-center gap-1">
-          <CustomLink path={ROUTES.AUTH.SIGN_IN} title="Sign in" />
-          <CustomLink path={ROUTES.AUTH.SIGN_UP} title="Create Account" />
-        </div>
+      {/* Action buttons */}
+      <div className="flex flex-col font-medium items-center text-center gap-1">
+        <CustomLink path={ROUTES.AUTH.SIGN_IN} title="Sign in" />
+        <CustomLink path={ROUTES.AUTH.SIGN_UP} title="Create Account" />
       </div>
     </div>
   );
