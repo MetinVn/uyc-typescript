@@ -1,7 +1,10 @@
 import { useState, useCallback, useMemo, useEffect } from "react";
 import { ZodType } from "zod";
 
-export const useFormController = <T extends Record<string, any>>(schema: ZodType<T>, initialValues: T) => {
+export const useFormController = <T extends Record<string, any>>(
+  schema: ZodType<T>,
+  initialValues: T,
+) => {
   const [formData, setFormData] = useState<T>(initialValues);
   const [errors, setErrors] = useState<Partial<Record<keyof T, string>>>({});
 
@@ -13,17 +16,14 @@ export const useFormController = <T extends Record<string, any>>(schema: ZodType
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const { name, value } = e.target;
-      setErrors((prev) => ({
-        ...prev,
-        [name]: "",
-      }));
+      setErrors((prev) => (prev[name] ? { ...prev, [name]: "" } : prev));
 
       setFormData((prev) => ({
         ...prev,
         [name]: value,
       }));
     },
-    [errors]
+    [errors],
   );
 
   const validateForm = useCallback((): T | null => {
@@ -47,9 +47,12 @@ export const useFormController = <T extends Record<string, any>>(schema: ZodType
     setErrors({});
   }, [initialValues]);
 
-  const setErrorsCallback = useCallback((newErrors: Partial<Record<keyof T, string>>) => {
-    setErrors(newErrors);
-  }, []);
+  const setErrorsCallback = useCallback(
+    (newErrors: Partial<Record<keyof T, string>>) => {
+      setErrors(newErrors);
+    },
+    [],
+  );
 
   const setFormDataCallback = useCallback((data: Partial<T>) => {
     setFormData((prev) => ({ ...prev, ...data }));
@@ -65,6 +68,14 @@ export const useFormController = <T extends Record<string, any>>(schema: ZodType
       setErrors: setErrorsCallback,
       setFormData: setFormDataCallback,
     }),
-    [formData, errors, handleChange, validateForm, resetForm, setErrorsCallback, setFormDataCallback]
+    [
+      formData,
+      errors,
+      handleChange,
+      validateForm,
+      resetForm,
+      setErrorsCallback,
+      setFormDataCallback,
+    ],
   );
 };

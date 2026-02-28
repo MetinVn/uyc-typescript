@@ -31,5 +31,8 @@ export const ServeUser = (): IServedUser => {
     return () => stopListening();
   }, [setIsEmailVerified]);
 
-  return { user: userState.user, userLoading: userState.userLoading };
+  return {
+    user: userState.user,
+    userLoading: userState.userLoading,
+  };
 };
