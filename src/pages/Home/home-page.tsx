@@ -1,5 +1,16 @@
-import withLazyLoad from "../lazy-load-pages";
+import { lazy, Suspense } from "react";
+import { HomePageLoader } from "./home-page-loader";
 
-const HomePageWrapper = withLazyLoad(() => import("./home-chunk"), "Loading home page...");
+export const HomePage = () => {
+  const LazyHomePageChunk = lazy(() => import("./home-chunk"));
 
-export default HomePageWrapper;
+  return (
+    <>
+      <Suspense fallback={<HomePageLoader />}>
+        <LazyHomePageChunk />
+      </Suspense>
+    </>
+  );
+};
+
+export default HomePage;
