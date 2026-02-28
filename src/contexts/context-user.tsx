@@ -1,4 +1,4 @@
-import { createContext, useContext, useMemo } from "react";
+import { createContext, useContext } from "react";
 import { type IServedUser, ServeUser } from "../hooks/hook-serve-user";
 
 const UserContext = createContext<IServedUser | null>(null);
@@ -6,9 +6,13 @@ const UserContext = createContext<IServedUser | null>(null);
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const { user, userLoading } = ServeUser();
 
-  const memoizedUserContext = useMemo(() => ({ user, userLoading }), [user, userLoading]);
+  const AppUserContext = { user, userLoading };
 
-  return <UserContext.Provider value={memoizedUserContext}>{children}</UserContext.Provider>;
+  return (
+    <UserContext.Provider value={AppUserContext}>
+      {children}
+    </UserContext.Provider>
+  );
 };
 
 export const useUser = () => {
