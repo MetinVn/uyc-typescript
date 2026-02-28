@@ -1,21 +1,33 @@
-import { memo, useCallback, useRef, useState } from "react";
+import { lazy, memo, Suspense, useCallback, useRef, useState } from "react";
 import { User } from "firebase/auth";
 
-import { ROUTES } from "../../routes/routes";
 import { useMusicFormat } from "../../stores/shared/format-change";
 import { useHandleOutsideClicks } from "../../hooks/hook-outside-clicks";
 import { signOutCurrentUser } from "../../services/user/firebase";
 import { converted } from "../../stores/shared/converted-song";
 import { notify } from "../../stores/shared/notification";
-import { CustomLink } from "../reused-ui/reused-router-link";
-import { DangerButton } from "../reused-ui/reused-button";
 import { ImageLoader } from "../../utils/img-loader";
+import { ProfileLoader } from "./profile-loader";
+import { AnimatePresence, motion } from "framer-motion";
+import { PopupLoader } from "./popup-loader";
 
 export const UserProfile = memo(({ user }: { user: User }) => {
   const [expand, setExpand] = useState(false);
   const [confirmLogOut, setConfirmLogOut] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const confirmLogOutRef = useRef<HTMLDivElement>(null);
+
+  const getOptimizedPhotoURL = (url: string | null | undefined, size: number) => {
+    if (!url) return null;
+    const urlObj = new URL(url);
+    urlObj.searchParams.set("s", size.toString());
+    return urlObj.toString();
+  };
+
+  const optimizedPhotoURL = getOptimizedPhotoURL(user.photoURL, 60);
+
+  const LazyUserProfileDropdown = lazy(() => import("./home-page-profile-dropdown"));
+  const LazyUserProfilePopup = lazy(() => import("./home-page-profile-popup"));
 
   const resetFormat = useMusicFormat((state) => state.resetFormat);
   useHandleOutsideClicks({ isActive: expand, ref: dropdownRef, stateChanger: setExpand });
@@ -47,9 +59,13 @@ export const UserProfile = memo(({ user }: { user: User }) => {
       {/* Desktop view profile */}
       <div
         onClick={handleToggle}
-        className="hidden sm:flex items-center gap-1 p-1 rounded-full cursor-pointer bg-[var(--gray-800)] hover:opacity-90 active:bg-[var(--gray-700)] hover:bg-[var(--gray-700)] transition"
+        className="hidden sm:flex items-center gap-1 p-1 rounded-xl cursor-pointer bg-[var(--gray-700)] hover:opacity-90 active:bg-[var(--gray-500)] hover:bg-[var(--gray-600)] transition"
       >
-        <ImageLoader imgSrc={user.photoURL} className="w-15 h-15 rounded-full object-cover object-center" />
+        <ImageLoader
+          imgSrc={optimizedPhotoURL}
+          loading="eager"
+          className="w-15 h-15 rounded-full object-cover object-center"
+        />
         <div className="flex flex-col items-start px-2 text-left">
           <h1 className="text-sm max-w-[125px] truncate text-[var(--gray-100)]">{user?.displayName || "User"}</h1>
           <p className="text-xs max-w-[135px] truncate text-[var(--gray-400)]">{user?.email || "example@gmail.com"}</p>
@@ -61,46 +77,33 @@ export const UserProfile = memo(({ user }: { user: User }) => {
         onClick={handleToggle}
         className="sm:hidden flex items-center justify-center p-1 rounded-full cursor-pointer bg-[var(--gray-700)] active:bg-[var(--gray-800)] transition"
       >
-        <ImageLoader imgSrc={user.photoURL} className="w-14 h-14 rounded-full object-cover" />
+        <ImageLoader imgSrc={optimizedPhotoURL} className="w-14 h-14 rounded-full object-cover" />
       </button>
 
       {/* Dropdown */}
-      <div
-        className={`${
-          expand ? "translate-y-4 opacity-100 visible" : "translate-y-0 opacity-0 invisible"
-        } absolute right-1/2 translate-x-4 sm:translate-x-1/2 top-full w-full min-w-35 p-4 rounded-xl z-20 transition-all bg-[var(--gray-800)]`}
-      >
-        <div className="flex flex-col font-medium items-center text-center gap-2 text-[var(--gray-100)]">
-          <CustomLink path={ROUTES.AUTH.ACCOUNT} title="Account" />
-          <CustomLink path={ROUTES.MUSIC} title="My music" />
-          <hr className="text-[var(--red-700)] h-[1px] w-full" />
-          <DangerButton onClick={handleLogOutPopup} title="Log out" />
-        </div>
-      </div>
+      <AnimatePresence>
+        {expand && (
+          <motion.div
+            initial={{ opacity: 0, y: "100%", visibility: "hidden" }}
+            animate={{ opacity: 1, y: "120%", visibility: "visible" }}
+            transition={{ duration: 0.2 }}
+            className="absolute inset-0"
+          >
+            <Suspense fallback={<ProfileLoader />}>
+              <LazyUserProfileDropdown onLogOut={handleLogOutPopup} />
+            </Suspense>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {confirmLogOut && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(24,24,27,0.7)] px-4 sm:px-0 overflow-y-auto">
-          <div
-            ref={confirmLogOutRef}
-            className="bg-[var(--gray-800)] text-[var(--gray-100)] rounded-xl p-4 sm:p-6 w-full max-w-md mx-auto my-10 shadow-lg"
-          >
-            <p className="text-sm text-[var(--gray-400)] mb-4">Are you sure to logout?</p>
-            <div className="flex flex-col sm:flex-row sm:space-x-3 space-y-2 sm:space-y-0">
-              <button
-                onClick={handleLogOutPopup}
-                className="bg-[var(--gray-700)] hover:bg-[var(--gray-600)] cursor-pointer px-4 py-2 rounded-md transition"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleSignOut}
-                className="bg-[var(--red-700)] hover:bg-[var(--red-500)] cursor-pointer px-4 py-2 rounded-md transition"
-              >
-                Log out
-              </button>
-            </div>
-          </div>
-        </div>
+        <Suspense fallback={<PopupLoader />}>
+          <LazyUserProfilePopup
+            confirmLogOutRef={confirmLogOutRef}
+            handleLogOutPopup={handleLogOutPopup}
+            handleSignOut={handleSignOut}
+          />
+        </Suspense>
       )}
     </div>
   );
