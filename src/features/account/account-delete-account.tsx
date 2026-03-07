@@ -26,7 +26,7 @@ export const DeleteAccountChunk = ({
   const animatingDeleteAccID = "AccountDelete";
 
   const deleteButtonState = useButtonState((s) =>
-    s.getButtonState(animatingDeleteAccID)
+    s.getButtonState(animatingDeleteAccID),
   );
 
   const deleteAccAnimation = animateTo(animatingDeleteAccID);
@@ -48,7 +48,7 @@ export const DeleteAccountChunk = ({
 
       const reauthSuccess = await reauthenticateUser(
         user,
-        data.currentPassword
+        data.currentPassword,
       );
       if (!reauthSuccess) {
         notify.error("Incorrect password. Please try again.", 2500);
@@ -81,7 +81,7 @@ export const DeleteAccountChunk = ({
       console.clear();
       return true;
     },
-    [deleteProfileForm, user, deleteAccAnimation, setShowDeleteModal]
+    [deleteProfileForm, user, deleteAccAnimation, setShowDeleteModal],
   );
 
   const handleCloseDeleteModal = useCallback(() => {

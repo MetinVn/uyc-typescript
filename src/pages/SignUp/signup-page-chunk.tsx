@@ -19,10 +19,16 @@ import { RegisterWithGoogle } from "../../components/reused-ui/reused-google-log
 
 export const SignUpComponent = () => {
   const navigate = useNavigate();
-  const { formData, errors, handleChange, validateForm, resetForm, setErrors } = useSignUpForm();
+  const { formData, errors, handleChange, validateForm, resetForm, setErrors } =
+    useSignUpForm();
 
   const animatingButtonTackerID = "SignUp";
-  const { default: before, error: failed, pending, success } = animateTo(animatingButtonTackerID);
+  const {
+    default: before,
+    error: failed,
+    pending,
+    success,
+  } = animateTo(animatingButtonTackerID);
 
   const handleSubmit = async (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault();
@@ -35,10 +41,17 @@ export const SignUpComponent = () => {
       return false;
     }
     try {
-      const user = await signUpWithEmailPassword(validated.email, validated.password, validated.displayName);
+      const user = await signUpWithEmailPassword(
+        validated.email,
+        validated.password,
+        validated.displayName,
+      );
       await sendVerificationEmail(user);
       await signOutCurrentUser();
-      notify.success("Email verification link has been sent to your inbox! Please verify your email to sign in", 3500);
+      notify.success(
+        "Email verification link has been sent to your inbox! Please verify your email to sign in",
+        3500,
+      );
       success();
       resetForm();
       setErrors({});
@@ -102,7 +115,9 @@ export const SignUpComponent = () => {
         <CustomLink path={ROUTES.HOME} title="Back" />
 
         <div className="space-y-5">
-          <h2 className="text-[var(--gray-100)] text-2xl font-semibold text-center">Sign Up</h2>
+          <h2 className="text-[var(--gray-100)] text-2xl font-semibold text-center">
+            Sign Up
+          </h2>
           <FormFields
             showEmailField
             onSubmit={handleSubmit}
@@ -113,16 +128,25 @@ export const SignUpComponent = () => {
             showPasswordField={true}
             showForgotPasswordLink={false}
           />
-          <AnimatingButton id={animatingButtonTackerID} fullWidth defaultText="Sign up" setButtonState={handleSubmit} />
+          <AnimatingButton
+            id={animatingButtonTackerID}
+            fullWidth
+            defaultText="Sign up"
+            setButtonState={handleSubmit}
+          />
           <div className="flex items-center gap-4 text-[var(--gray-400)] text-sm">
             <div className="h-px bg-[var(--gray-600)] flex-1" />
             <span className="uppercase text-xs tracking-widest">or</span>
             <div className="h-px bg-[var(--gray-600)] flex-1" />
           </div>
-          <RegisterWithGoogle id={animatingButtonTackerID} onClick={handleGoogleSignUp} />
+          <RegisterWithGoogle
+            id={animatingButtonTackerID}
+            onClick={handleGoogleSignUp}
+          />
           <div className="mt-4 text-sm text-center text-[var(--gray-300)]">
             <p>
-              Already have an account? <CustomLink path={ROUTES.AUTH.SIGN_IN} title="Sign in" />
+              Already have an account?{" "}
+              <CustomLink path={ROUTES.AUTH.SIGN_IN} title="Sign in" />
             </p>
           </div>
         </div>
