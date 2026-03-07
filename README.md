@@ -4,6 +4,8 @@ A modern web app for converting YouTube links to downloadable music, managing yo
 
 ---
 
+[Netlify Status](https://api.netlify.com/api/v1/badges/24ffc091-db6f-43ce-8393-8c208fa7703f/deploy-status)
+
 ## Table of Contents
 
 - [Project Overview](#project-overview)
