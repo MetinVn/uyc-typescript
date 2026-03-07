@@ -11,7 +11,7 @@ interface INotificationStore {
   addNotification: (
     type: NotificationType,
     text: string,
-    autoCloseDelay?: number
+    autoCloseDelay?: number,
   ) => void;
   removeNotification: (id: string) => void;
 }

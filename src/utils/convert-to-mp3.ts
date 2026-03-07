@@ -35,16 +35,9 @@ export async function ConvertToMP3(props: ConvertToMP3Props) {
   try {
     console.log("Requesting conversion for YouTube ID:", youtubeId);
     pending();
-    const options = {
-      method: "GET",
-      url: "https://youtube-mp36.p.rapidapi.com/dl",
-      params: { id: youtubeId },
-      headers: {
-        "x-rapidapi-key": import.meta.env.VITE_RAPID_API_KEY,
-        "x-rapidapi-host": "youtube-mp36.p.rapidapi.com",
-      },
-    };
-    const response = await axios.request(options);
+    const response = await axios.get(
+      `/.netlify/functions/convert?id=${youtubeId}`,
+    );
     if (!response.data.link && response.data.link === "") {
       failed();
       before();
