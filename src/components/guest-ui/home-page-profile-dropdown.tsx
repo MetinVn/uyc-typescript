@@ -6,7 +6,7 @@ export const GuestProfileDropdown = () => {
     { icon: "★", label: "Favorite songs" },
     { icon: "✩", label: "Rate songs" },
     { icon: "♫", label: "Playlists" },
-    { icon: "🎬", label: "Convert to MP4" },
+    // { icon: "🎬", label: "Convert to MP4" },
   ];
 
   return (
