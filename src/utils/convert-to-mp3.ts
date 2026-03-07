@@ -10,7 +10,12 @@ import { converted } from "../stores/shared/converted-song";
 import { ConvertToMP3Props } from "../types/types-utility-props";
 
 export async function ConvertToMP3(props: ConvertToMP3Props) {
-  const { default: before, error: failed, pending, success } = animateTo(props.id);
+  const {
+    default: before,
+    error: failed,
+    pending,
+    success,
+  } = animateTo(props.id);
 
   if (props.youtubeLinkRef.current.trim() === "") {
     notify.error("Link can not be empty", 1000);
@@ -35,7 +40,7 @@ export async function ConvertToMP3(props: ConvertToMP3Props) {
       url: "https://youtube-mp36.p.rapidapi.com/dl",
       params: { id: youtubeId },
       headers: {
-        "x-rapidapi-key": import.meta.env.VITE_RAPID_API_KEY,
+        "x-rapidapi-key": import.meta.env.RAPID_API_KEY,
         "x-rapidapi-host": "youtube-mp36.p.rapidapi.com",
       },
     };
